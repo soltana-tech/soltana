@@ -2,48 +2,46 @@
 
 # Soltana
 
-![TanStack Start](https://img.shields.io/badge/TanStack_Start-SSR-FF4154?logo=react&logoColor=white)
-![Cloudflare D1](https://img.shields.io/badge/Cloudflare-D1_/_Pages-F38020?logo=cloudflare&logoColor=white)
-![Drizzle ORM](https://img.shields.io/badge/Drizzle-ORM-C5F74F?logo=drizzle&logoColor=black)
-![Better Auth](https://img.shields.io/badge/Better_Auth-self--hosted-6366F1?logoColor=white)
-![uv](https://img.shields.io/badge/uv-Python_ETL-DE5FE9?logo=astral&logoColor=white)
+![TanStack Start](https://img.shields.io/badge/TanStack_Start-v1.163-BD93F9?logo=react&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.9-BD93F9?logo=typescript&logoColor=white)
+![Better Auth](https://img.shields.io/badge/Better_Auth-v1.4-BD93F9?logoColor=white)
+![Drizzle](https://img.shields.io/badge/Drizzle-v0.45-BD93F9?logoColor=white)
+![Playwright](https://img.shields.io/badge/Playwright-v1.58-BD93F9?logo=playwright&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3.12%2B-BD93F9?logo=python&logoColor=white)
 
 ---
 
-_Open-source academic scripture study platform._
+_Open-source academic scripture study platform. Knowledge shared freely._
 
 ---
 
 </div>
 
+> [!IMPORTANT]
+> This project is currently in pre-release, with the initial release scheduled for January 1, 2027.
+
 ## Overview
 
-Soltana is an open-source academic scripture study platform serving casual readers, serious
-students, seminarians, clergy, and academics. See [docs/SCOPE.md](docs/SCOPE.md) for the full
-vision and [docs/index.md](docs/index.md) for the roadmap and documentation index.
+Soltana is an open-source academic scripture study platform. The target audience spans casual
+readers, serious students, seminarians, clergy, and academics. No account is required to read
+or browse; authentication unlocks cross-device sync, custom study plans, annotations, and
+notebooks.
 
-## Tech Stack
+The near-term scope covers Abrahamic traditions — Christian, Jewish, and Islamic
+— with full canonical and extracanonical coverage. The architecture is designed to expand into
+Ancient Near Eastern, Zoroastrian, Buddhist, and Hindu traditions in later phases without
+requiring structural rework.
 
-| Layer | Tools |
-| --- | --- |
-| Web framework | TanStack Start (SSR), React 19, TypeScript 5.9 |
-| Database | Cloudflare D1 (SQLite at the edge), Drizzle ORM |
-| Auth | Better Auth (self-hosted, email/password + OAuth) |
-| Deployment | Cloudflare Pages, Cloudflare Workers |
-| Styling | SCSS, Dracula neumorphic design system |
-| Scrapers | Playwright, TypeScript |
-| Pipeline | Python, uv, DuckDB, Polars |
-| Monorepo | pnpm workspaces |
+Goals:
 
-## Monorepo Structure
+- Provide a free, open alternative to tools like Blue Letter Bible with better UX and genuine
+  multi-faith scope
+- Support academic depth (original languages, morphology, cross-references, word study) alongside
+  casual reading modes
+- Keep corpus data open and auditable — only public domain and permissively licensed translations
 
-```text
-soltana/
-├── apps/web/       # TanStack Start app (SSR, Cloudflare Pages)
-├── scrapers/       # Playwright scrapers (TypeScript)
-├── pipeline/       # ETL pipeline (Python, uv)
-└── docs/           # Documentation
-```
+See [docs/SCOPE.md](docs/SCOPE.md) for the full vision and corpus roadmap, and
+[docs/index.md](docs/index.md) for the phased development roadmap.
 
 ## Development
 
@@ -60,16 +58,6 @@ pnpm --filter @soltana/scrapers cfm
 # Pipeline CLI
 cd pipeline && uv run soltana-pipeline --help
 ```
-
-## Commands
-
-| Command | Description |
-| --- | --- |
-| `pnpm dev` | Start development server |
-| `pnpm build` | Build for production |
-| `pnpm lint` | Run linters |
-| `pnpm --filter @soltana/web type-check` | TypeScript type check |
-| `pnpm --filter @soltana/web db:generate` | Generate Drizzle migrations |
 
 ## License
 
