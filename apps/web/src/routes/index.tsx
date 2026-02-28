@@ -1,0 +1,60 @@
+import { Link, createFileRoute } from '@tanstack/react-router';
+
+export const Route = createFileRoute('/')({
+  component: LandingPage,
+});
+
+const FEATURES = [
+  {
+    icon: '\u{1F4D6}',
+    title: 'Study Plans',
+    description:
+      'Follow structured reading schedules including Come, Follow Me 2026 OT, Bible in a Year, and more.',
+    to: '/plans',
+  },
+  {
+    icon: '\u{1F4DC}',
+    title: 'Scripture Reader',
+    description:
+      'Configurable reading experience with annotations, notebooks, and cross-references.',
+    to: '/read',
+  },
+  {
+    icon: '\u{1F3EB}',
+    title: 'Teach',
+    description:
+      'Tools for preparing sermons, lessons, and presentations with inline scripture references.',
+    to: '/teach',
+  },
+  {
+    icon: '\u{23F3}',
+    title: 'Historical Timeline',
+    description:
+      'Interactive zoomable timeline with people, places, and events across faith traditions.',
+    to: '/timeline',
+  },
+] as const;
+
+function LandingPage() {
+  return (
+    <div className="landing">
+      <section className="landing-hero">
+        <h1>Soltana</h1>
+        <p>
+          An open-source academic scripture study platform. Read, study, teach, and explore across
+          traditions with genuine multi-faith scope and academic depth.
+        </p>
+      </section>
+
+      <section className="landing-features">
+        {FEATURES.map((feature) => (
+          <Link key={feature.to} to={feature.to} className="feature-card">
+            <span className="feature-icon">{feature.icon}</span>
+            <h3>{feature.title}</h3>
+            <p>{feature.description}</p>
+          </Link>
+        ))}
+      </section>
+    </div>
+  );
+}

@@ -1,0 +1,55 @@
+// Dracula-inspired color palette
+$bg-0: #0b0d17;
+$bg-1: #11132a;
+$bg-2: #171a35;
+$bg-3: #1f2350;
+$ink-0: #f8f8f2;
+$ink-1: #d6d8f3;
+$ink-2: #9aa0c6;
+
+// Accent colors
+$cyan: #8be9fd;
+$green: #50fa7b;
+$orange: #ffb86c;
+$pink: #ff79c6;
+$purple: #bd93f9;
+$red: #f55;
+$yellow: #f1fa8c;
+
+// Extended accents
+$teal: #2de2e6;
+$indigo: #6c63ff;
+$violet: #9d4edd;
+$magenta: #ff3cac;
+
+// Transparency
+$stroke: rgb(255 255 255 / 8%);
+$glass: rgb(255 255 255 / 4%);
+$shadow-hi: rgb(255 255 255 / 6%);
+$shadow-lo: rgb(0 0 0 / 60%);
+
+// Border radii
+$radius-lg: 18px;
+$radius-md: 14px;
+$radius-sm: 10px;
+
+// Typography
+$font-size-base: 16px;
+$font-size-reading: 18px;
+$font-size-excerpt: 16px;
+$font-size-day-label: 16px;
+$font-size-weeknum: 28px;
+$font-size-header: 24px;
+$letter-spacing-base: 0.02em;
+$letter-spacing-reading: 0.02em;
+
+// Transitions
+$transition-fast: 0.3s ease;
+$transition-medium: 0.4s ease-in-out;
+
+// Shadows
+$shadow-table-row:
+  inset 0 6px 18px rgb(0 0 0 / 60%),
+  inset 0 -4px 12px rgb(255 255 255 / 3%),
+  0 2px 0 rgb(255 255 255 / 2%),
+  0 -2px 0 rgb(0 0 0 / 20%);

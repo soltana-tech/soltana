@@ -1,0 +1,291 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.plans-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 24px;
+}
+
+.plans-header {
+  margin-bottom: 32px;
+
+  h1 {
+    font-size: 2rem;
+    color: $ink-0;
+    margin-bottom: 8px;
+  }
+
+  p {
+    color: $ink-2;
+    font-size: 1rem;
+    margin: 0;
+  }
+}
+
+.plan-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.plan-card {
+  padding: 24px;
+  text-decoration: none;
+  color: inherit;
+  transition: all $transition-fast;
+  cursor: pointer;
+
+  @include glass-card;
+  @include neo-raised(6px);
+
+  &:hover {
+    transform: translateY(-2px);
+    border-color: rgba($cyan, 0.15);
+  }
+
+  h3 {
+    color: $ink-0;
+    margin-bottom: 6px;
+  }
+
+  p {
+    color: $ink-2;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin: 0;
+  }
+}
+
+.plan-card-badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  color: $bg-0;
+  background: $cyan;
+
+  &.placeholder {
+    background: $ink-2;
+  }
+}
+
+// --- CFM Timeline ---
+
+.cfm-timeline {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.cfm-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+
+  @media (width <= 768px) {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+.cfm-view-toggle {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  border-radius: $radius-sm;
+  background: rgb(0 0 0 / 20%);
+  border: 1px solid $stroke;
+}
+
+.cfm-view-btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: calc($radius-sm - 4px);
+  background: transparent;
+  color: $ink-2;
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: all $transition-fast;
+
+  &.active {
+    color: $ink-0;
+    background: rgba($cyan, 0.12);
+
+    @include neo-button-raised;
+  }
+}
+
+.cfm-weeks {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cfm-week {
+  display: grid;
+  grid-template-columns: 140px 1fr 1fr;
+  gap: 16px;
+  padding: 16px;
+  border-radius: $radius-md;
+  background: linear-gradient(145deg, rgb(0 0 0 / 12%), rgb(0 0 0 / 5%));
+  transition: background $transition-fast;
+  position: relative;
+  overflow: hidden;
+
+  @include table-row-shadow;
+
+  &.current {
+    background: linear-gradient(145deg, rgba($green, 0.18), rgba($cyan, 0.12), rgb(0 0 0 / 5%));
+    box-shadow:
+      inset 6px 0 0 $green,
+      inset 0 8px 20px rgb(0 0 0 / 55%),
+      inset 0 -5px 15px rgb(255 255 255 / 3%);
+
+    .cfm-weeknum {
+      color: $green;
+    }
+  }
+
+  @media (width <= 768px) {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+}
+
+.cfm-week-meta {
+  display: flex;
+  flex-direction: column;
+
+  @media (width <= 768px) {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid $stroke;
+    padding-bottom: 8px;
+  }
+}
+
+.cfm-weeknum {
+  font-weight: 800;
+  font-size: $font-size-weeknum;
+  color: $ink-0;
+}
+
+.cfm-dates {
+  color: $ink-2;
+  font-size: 0.9rem;
+  margin-top: 4px;
+}
+
+.cfm-lesson-info {
+  a {
+    font-weight: 600;
+    color: $cyan;
+    font-size: 1rem;
+    display: block;
+    margin-bottom: 6px;
+
+    &:hover {
+      color: $pink;
+    }
+  }
+}
+
+.cfm-reading {
+  padding-left: 8px;
+  border-left: 2px solid rgba($cyan, 0.3);
+  color: $ink-2;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.cfm-excerpt {
+  margin-top: 8px;
+  font-size: 0.85rem;
+  font-style: italic;
+  color: rgba($ink-1, 0.85);
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+
+  @media (width <= 768px) {
+    display: none;
+  }
+}
+
+.cfm-day-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.cfm-day-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 6px 12px;
+  border-radius: $radius-sm;
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+  font-size: 0.9rem;
+  transition:
+    box-shadow $transition-fast,
+    background-color $transition-medium,
+    border-color $transition-medium;
+
+  @include neo-button-raised;
+
+  &:hover:not(:disabled) {
+    box-shadow:
+      8px 8px 20px $shadow-lo,
+      -5px -5px 14px $shadow-hi,
+      inset 0 1px 0 rgb(255 255 255 / 10%);
+  }
+
+  &.read {
+    @include neo-button-pressed;
+
+    .cfm-day-label {
+      color: $green;
+    }
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+}
+
+.cfm-day-label {
+  flex-shrink: 0;
+  font-weight: 700;
+  color: $cyan;
+  letter-spacing: 0.04em;
+  min-width: 5ch;
+  font-size: 0.85rem;
+}
+
+.cfm-day-reading {
+  color: $ink-1;
+  font-size: 0.9rem;
+
+  &.empty {
+    color: $ink-2;
+    font-style: italic;
+  }
+}

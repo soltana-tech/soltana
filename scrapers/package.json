@@ -1,0 +1,18 @@
+{
+  "name": "@soltana/scrapers",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "cfm": "tsx src/cfm/scrape.ts",
+    "lint": "eslint .",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@playwright/test": "^1.58.2"
+  },
+  "devDependencies": {
+    "@types/node": "^25.3.3",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  }
+}

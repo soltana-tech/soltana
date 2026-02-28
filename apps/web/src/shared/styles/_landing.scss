@@ -1,0 +1,84 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.landing {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 60px 24px;
+}
+
+.landing-hero {
+  text-align: center;
+  margin-bottom: 64px;
+
+  h1 {
+    font-size: 3.5rem;
+    background: linear-gradient(135deg, $cyan, $purple);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 16px;
+  }
+
+  p {
+    font-size: 1.25rem;
+    color: $ink-1;
+    max-width: 640px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  @media (width <= 768px) {
+    margin-bottom: 40px;
+
+    h1 {
+      font-size: 2.25rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+    }
+  }
+}
+
+.landing-features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+}
+
+.feature-card {
+  padding: 32px 24px;
+  text-decoration: none;
+  color: inherit;
+  transition: all $transition-fast;
+
+  @include glass-card;
+  @include neo-raised(8px);
+
+  &:hover {
+    transform: translateY(-4px);
+    border-color: rgba($cyan, 0.2);
+    box-shadow:
+      12px 12px 28px $shadow-lo,
+      -8px -8px 20px $shadow-hi;
+  }
+
+  h3 {
+    font-size: 1.25rem;
+    color: $ink-0;
+    margin-bottom: 8px;
+  }
+
+  p {
+    font-size: 0.95rem;
+    color: $ink-2;
+    line-height: 1.6;
+    margin: 0;
+  }
+}
+
+.feature-icon {
+  font-size: 2rem;
+  margin-bottom: 12px;
+  display: block;
+}

@@ -1,0 +1,19 @@
+@use 'variables' as *;
+
+.timeline-stub {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 60px 24px;
+  text-align: center;
+
+  h1 {
+    color: $ink-0;
+    margin-bottom: 16px;
+  }
+
+  p {
+    color: $ink-2;
+    font-size: 1.1rem;
+    line-height: 1.7;
+  }
+}

@@ -1,0 +1,72 @@
+@use 'variables' as *;
+
+@mixin neo-raised($size: 10px) {
+  box-shadow:
+    $size $size ($size * 2.4) $shadow-lo,
+    (-$size) (-$size) ($size * 2.4) $shadow-hi;
+}
+
+@mixin neo-inset($size: 10px) {
+  box-shadow:
+    inset $size $size ($size * 2) rgb(0 0 0 / 45%),
+    inset (-$size) (-$size) ($size * 2) rgb(255 255 255 / 5%);
+}
+
+@mixin glass-card {
+  border-radius: $radius-lg;
+  border: 1px solid $stroke;
+  background: linear-gradient(145deg, rgb(255 255 255 / 5%), rgb(255 255 255 / 2%));
+  backdrop-filter: blur(8px);
+}
+
+@mixin neo-button-raised {
+  background-color: rgb(0 0 0 / 4%);
+  border: 1px solid rgb(255 255 255 / 5%);
+  box-shadow:
+    2px 2px 6px rgb(0 0 0 / 50%),
+    -1px -1px 4px rgb(255 255 255 / 3%),
+    inset 0 1px 0 rgb(255 255 255 / 4%);
+}
+
+@mixin neo-button-pressed {
+  background-color: rgba($green, 0.06);
+  border: 1px solid rgba($green, 0.12);
+  box-shadow:
+    inset 6px 6px 12px rgb(0 0 0 / 55%),
+    inset -3px -3px 8px rgb(255 255 255 / 3%);
+}
+
+@mixin reading-text {
+  font-size: $font-size-reading;
+  line-height: 1.6;
+  letter-spacing: $letter-spacing-reading;
+}
+
+@mixin gradient-scroll-nav {
+  background: linear-gradient(145deg, rgba($purple, 0.25), rgba($cyan, 0.15));
+}
+
+@mixin fab-base {
+  position: fixed;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgb(255 255 255 / 8%);
+  border-radius: $radius-md;
+  backdrop-filter: blur(16px);
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition:
+    opacity 0.3s ease,
+    visibility 0.3s ease,
+    transform 0.3s ease;
+
+  &.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+}

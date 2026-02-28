@@ -1,0 +1,106 @@
+@use 'variables' as *;
+
+* {
+  box-sizing: border-box;
+}
+
+@supports not selector(::-webkit-scrollbar) {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgba($purple, 0.7) $bg-0;
+  }
+}
+
+html {
+  height: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizelegibility;
+  background-color: $bg-0;
+  scrollbar-gutter: stable;
+}
+
+body {
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  color: $ink-0;
+  font:
+    #{$font-size-base}/ 1.6 Georgia,
+    'Times New Roman',
+    serif;
+  letter-spacing: 0.03em;
+  background:
+    radial-gradient(ellipse 1200px 800px at 15% 10%, rgba($purple, 0.18), transparent 60%),
+    radial-gradient(ellipse 900px 700px at 80% 15%, rgba($cyan, 0.14), transparent 55%),
+    radial-gradient(ellipse 900px 700px at 30% 90%, rgba($pink, 0.12), transparent 60%),
+    linear-gradient(180deg, $bg-0, $bg-1 35%, $bg-2);
+  background-attachment: fixed;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
+*::-webkit-scrollbar {
+  width: 14px;
+  height: 14px;
+  background: $bg-0;
+}
+
+*::-webkit-scrollbar-track,
+*::-webkit-scrollbar-track-piece {
+  background: $bg-0;
+}
+
+*::-webkit-scrollbar-corner {
+  background: $bg-0;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: radial-gradient(ellipse at center, rgba($purple, 0.6), rgba($bg-3, 0.95));
+  border-radius: 999px;
+  border: 3px solid $bg-0;
+  cursor: pointer;
+  box-shadow:
+    6px 6px 12px rgb(0 0 0 / 50%),
+    -3px -3px 8px rgb(255 255 255 / 3%),
+    inset 0 1px 2px rgb(255 255 255 / 15%),
+    inset 0 -1px 1px rgb(0 0 0 / 20%);
+}
+
+a {
+  color: $cyan;
+  text-decoration: none;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: $pink;
+  }
+}
+
+button,
+[role='button'] {
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0 0 8px;
+  letter-spacing: 0.03em;
+}
+
+h1 {
+  font-size: 2.5rem;
+  line-height: 1.2;
+}
+
+h2 {
+  font-size: 1.5rem;
+  color: $ink-1;
+}
+
+h3 {
+  font-size: 1.25rem;
+  color: $ink-1;
+}
