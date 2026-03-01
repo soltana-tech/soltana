@@ -1,0 +1,42 @@
+---
+description: Linting, formatting, and type-checking are handled exclusively by pre-commit hooks.
+alwaysApply: true
+---
+
+# Tooling
+
+All linting, formatting, and type-checking runs through **pre-commit hooks** defined in `.pre-commit-config.yaml`. Do not add duplicate npm scripts for these concerns.
+
+## Hooks and what they cover
+
+| Hook | Tool | Scope |
+|------|------|-------|
+| `prettier` | Formatting | JS, TS, TSX, SCSS, CSS, JSON, HTML |
+| `eslint` | Linting | JS, TS, TSX |
+| `stylelint` | CSS linting | SCSS, CSS |
+| `tsc` | Type-checking | `apps/web` TypeScript |
+| `markdownlint-cli2` | Markdown linting | All `.md` files |
+| `ruff-check` / `ruff-format` | Python linting + formatting | `pipeline/` only |
+| `trailing-whitespace`, `end-of-file-fixer`, etc. | File hygiene | All files |
+
+## Running checks
+
+```bash
+# Run all hooks against all files
+pnpm check
+
+# Run a single hook by id
+pre-commit run eslint --all-files
+pre-commit run tsc --all-files
+pre-commit run stylelint --all-files
+```
+
+Hooks also run automatically on `git commit`.
+
+## Config files
+
+- `.pre-commit-config.yaml` — hook definitions
+- `eslint.config.js` — ESLint rules
+- `.stylelintrc.json` — Stylelint rules
+- `.prettierrc.json` — Prettier rules
+- `.markdownlint.yaml` — Markdownlint rules

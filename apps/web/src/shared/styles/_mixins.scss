@@ -1,5 +1,9 @@
 @use 'variables' as *;
 
+// ---------------------------------------------------------------------------
+// Neumorphic primitives
+// ---------------------------------------------------------------------------
+
 @mixin neo-raised($size: 10px) {
   box-shadow:
     $size $size ($size * 2.4) $shadow-lo,
@@ -36,22 +40,293 @@
     inset -3px -3px 8px rgb(255 255 255 / 3%);
 }
 
+// ---------------------------------------------------------------------------
+// Typography helpers
+// ---------------------------------------------------------------------------
+
 @mixin reading-text {
   font-size: $font-size-reading;
   line-height: 1.6;
   letter-spacing: $letter-spacing-reading;
 }
 
-@mixin gradient-scroll-nav {
-  background: linear-gradient(145deg, rgba($purple, 0.25), rgba($cyan, 0.15));
+@mixin text-clamp($lines: 3) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: $lines;
+  line-clamp: $lines;
+  -webkit-box-orient: vertical;
 }
 
-@mixin table-row-shadow {
-  box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 4%),
-    inset 0 -1px 0 rgb(0 0 0 / 20%),
-    0 2px 8px rgb(0 0 0 / 30%);
+// ---------------------------------------------------------------------------
+// Layout
+// ---------------------------------------------------------------------------
+
+@mixin page-container($max-width: $page-max-width-md) {
+  max-width: $max-width;
+  margin: 0 auto;
+  padding: 40px 24px;
 }
+
+// ---------------------------------------------------------------------------
+// Data table system
+// ---------------------------------------------------------------------------
+
+@mixin data-table-wrap {
+  padding: $page-padding;
+  @include glass-card;
+  @include neo-raised(10px);
+}
+
+@mixin data-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 $table-row-spacing;
+  min-width: $table-min-width;
+  border: none;
+
+  thead {
+    background: $table-header-bg;
+    border-radius: $radius-lg $radius-lg 0 0;
+
+    tr {
+      border: none;
+    }
+
+    th {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      text-align: center;
+      font-size: 1.05rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: $ink-1;
+      padding: 20px $page-padding 5px;
+      backdrop-filter: blur(8px);
+      background: $table-header-bg;
+
+      &:first-child {
+        border-top-left-radius: $radius-lg;
+      }
+
+      &:last-child {
+        border-top-right-radius: $radius-lg;
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 100%;
+        height: $table-row-spacing;
+        background: $table-header-bg;
+        z-index: 1;
+      }
+    }
+  }
+
+  tbody {
+    td {
+      padding: 12px;
+      border-bottom: none;
+      vertical-align: top;
+      color: $ink-1;
+    }
+
+    tr {
+      position: relative;
+      background: $table-row-bg-odd;
+      border-radius: $radius-md;
+      transition: background $transition-fast;
+      box-shadow: $shadow-table-row;
+
+      &:nth-child(2n) {
+        background: $table-row-bg-even;
+      }
+
+      td:first-child {
+        border-top-left-radius: $radius-md;
+        border-bottom-left-radius: $radius-md;
+      }
+
+      td:last-child {
+        border-top-right-radius: $radius-md;
+        border-bottom-right-radius: $radius-md;
+      }
+    }
+  }
+}
+
+@mixin data-table-flush-first-row {
+  @media (width > 768px) {
+    tbody tr:first-child {
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+
+      td:first-child {
+        border-top-left-radius: 0;
+      }
+
+      td:last-child {
+        border-top-right-radius: 0;
+      }
+    }
+  }
+}
+
+@mixin data-table-mobile {
+  @media (width <= 768px) {
+    thead {
+      display: none;
+    }
+
+    tbody tr {
+      display: flex;
+      flex-direction: column;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: $radius-md;
+    }
+
+    tbody td {
+      display: block;
+      width: 100% !important;
+      border-bottom: none;
+      padding: 2px 0;
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Row overlays
+// ---------------------------------------------------------------------------
+
+@mixin row-bg-image {
+  position: absolute;
+  inset: 0;
+  display: block;
+  border-radius: $radius-md;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.15;
+  mix-blend-mode: soft-light;
+  filter: brightness(0.6) contrast(1.5);
+  pointer-events: none;
+  z-index: -1;
+}
+
+@mixin row-hover-overlay {
+  position: absolute;
+  inset: 0;
+  display: block;
+  opacity: 0;
+  border-radius: $radius-md;
+  background: linear-gradient(135deg, rgba($pink, 0.06), rgba($purple, 0.06), rgba($cyan, 0.05));
+  transition: opacity $transition-fast;
+  pointer-events: none;
+  z-index: 0;
+}
+
+// ---------------------------------------------------------------------------
+// Buttons
+// ---------------------------------------------------------------------------
+
+@mixin action-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 8px 14px;
+  border-radius: $radius-sm;
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+  font-size: 0.9rem;
+  transition:
+    box-shadow $transition-fast,
+    background-color $transition-medium,
+    border-color $transition-medium;
+
+  @include neo-button-raised;
+
+  &:hover:not(:disabled) {
+    box-shadow:
+      8px 8px 20px $shadow-lo,
+      -5px -5px 14px $shadow-hi,
+      inset 0 1px 0 rgb(255 255 255 / 10%);
+  }
+
+  &.read {
+    @include neo-button-pressed;
+  }
+
+  &:disabled,
+  &.empty {
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+}
+
+@mixin btn-group($direction: column, $gap: 6px) {
+  display: flex;
+  flex-direction: $direction;
+  gap: $gap;
+}
+
+@mixin icon-btn($size: 36px) {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: $size;
+  height: $size;
+  padding: 6px;
+  border-radius: $radius-sm;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  transition:
+    box-shadow $transition-fast,
+    background $transition-fast;
+
+  &:active {
+    background: linear-gradient(145deg, rgb(0 0 0 / 8%), rgb(0 0 0 / 4%));
+    box-shadow:
+      inset 3px 3px 6px rgb(0 0 0 / 40%),
+      inset -2px -2px 4px rgb(255 255 255 / 3%);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Tooltip
+// ---------------------------------------------------------------------------
+
+@mixin tooltip {
+  padding: 8px 16px;
+  border-radius: $radius-sm;
+  background: linear-gradient(145deg, $bg-2, $bg-3);
+  border: 1px solid $stroke;
+  color: $ink-1;
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: all $transition-fast;
+  box-shadow:
+    4px 4px 12px rgb(0 0 0 / 50%),
+    -2px -2px 8px rgb(255 255 255 / 4%);
+}
+
+// ---------------------------------------------------------------------------
+// FAB
+// ---------------------------------------------------------------------------
 
 @mixin fab-base {
   position: fixed;
@@ -76,4 +351,27 @@
     visibility: visible;
     transform: translateY(0);
   }
+}
+
+@mixin fab-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: $ink-1;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+// ---------------------------------------------------------------------------
+// Legacy aliases (kept for backward compat)
+// ---------------------------------------------------------------------------
+
+@mixin gradient-scroll-nav {
+  background: linear-gradient(145deg, rgba($purple, 0.25), rgba($cyan, 0.15));
+}
+
+@mixin table-row-shadow {
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 4%),
+    inset 0 -1px 0 rgb(0 0 0 / 20%),
+    0 2px 8px rgb(0 0 0 / 30%);
 }

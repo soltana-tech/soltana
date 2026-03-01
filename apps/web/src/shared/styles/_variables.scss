@@ -53,3 +53,20 @@ $shadow-table-row:
   inset 0 -4px 12px rgb(255 255 255 / 3%),
   0 2px 0 rgb(255 255 255 / 2%),
   0 -2px 0 rgb(0 0 0 / 20%);
+
+// Page layout
+$page-max-width-lg: 1500px;
+$page-max-width-md: 1200px;
+$page-max-width-sm: 800px;
+$page-padding: 14px;
+
+// Data table
+$table-min-width: 800px;
+$table-row-spacing: 12px;
+$table-row-bg-odd: linear-gradient(145deg, rgb(0 0 0 / 12%), rgb(0 0 0 / 5%));
+$table-row-bg-even: linear-gradient(145deg, rgb(0 0 0 / 14%), rgb(0 0 0 / 6%));
+$table-header-bg: $bg-2;
+
+// FAB
+$fab-collapsed-size: 56px;
+$fab-breakpoint: 1768px;

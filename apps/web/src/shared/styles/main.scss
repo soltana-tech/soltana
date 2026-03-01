@@ -1,9 +1,9 @@
 @use 'variables';
 @use 'base';
+@use 'components';
 @use 'navbar';
 @use 'landing';
-@use 'plans';
-@use 'reader';
-@use 'teach';
-@use 'timeline';
 @use 'auth';
+
+// Feature-specific styles
+@use '../../study-plans/styles/lds-cfm';

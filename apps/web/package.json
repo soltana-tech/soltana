@@ -8,9 +8,6 @@
     "preview": "vite preview",
     "deploy": "npm run build && wrangler deploy",
     "cf-typegen": "wrangler types",
-    "lint": "eslint .",
-    "lint:style": "stylelint \"**/*.{css,scss}\"",
-    "type-check": "tsc --noEmit",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate"
   },

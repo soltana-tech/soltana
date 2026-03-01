@@ -6,7 +6,7 @@ export const Route = createFileRoute('/teach/')({
 
 function TeachPage() {
   return (
-    <div className="teach-stub">
+    <div className="page">
       <h1>Teach</h1>
       <p>
         Tools for preparing and delivering sermons, lessons, and presentations. A markdown editor

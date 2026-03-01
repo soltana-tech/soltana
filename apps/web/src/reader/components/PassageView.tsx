@@ -6,7 +6,7 @@ interface PassageViewProps {
 
 export function PassageView({ corpus, book, chapter }: PassageViewProps) {
   return (
-    <div className="reader-stub">
+    <div className="page">
       <h1>
         {book} {chapter}
       </h1>

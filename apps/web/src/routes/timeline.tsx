@@ -6,7 +6,7 @@ export const Route = createFileRoute('/timeline')({
 
 function TimelinePage() {
   return (
-    <div className="timeline-stub">
+    <div className="page">
       <h1>Historical Timeline</h1>
       <p>
         An interactive zoomable timeline with people, places, and events as first-class entities.

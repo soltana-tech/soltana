@@ -1,0 +1,348 @@
+@use '../../shared/styles/variables' as *;
+@use '../../shared/styles/mixins' as *;
+
+// ---------------------------------------------------------------------------
+// LDS Come, Follow Me -- CFM-specific overrides
+// Generic table/card/FAB structure comes from _components.scss.
+// This file only contains styles unique to the CFM study plan layout.
+// ---------------------------------------------------------------------------
+
+// Container uses the large page width
+.cfm-timeline {
+  @include page-container($page-max-width-lg);
+
+  padding: $page-padding;
+  position: relative;
+}
+
+.cfm-table-wrap {
+  margin-top: $page-padding;
+}
+
+// ---------------------------------------------------------------------------
+// Column widths
+// ---------------------------------------------------------------------------
+
+.col-week {
+  width: 150px;
+}
+
+.col-cfm {
+  width: 480px;
+
+  a {
+    font-weight: 600;
+    color: $cyan;
+    display: block;
+    margin-bottom: 6px;
+    line-height: 1.4;
+    font-size: 1.05rem;
+    letter-spacing: 0.04em;
+
+    &:hover {
+      color: $pink;
+    }
+  }
+}
+
+.col-readings {
+  width: 320px;
+}
+
+// ---------------------------------------------------------------------------
+// Period label & dates
+// ---------------------------------------------------------------------------
+
+.cfm-weeknum {
+  font-weight: 800;
+  font-size: $font-size-weeknum;
+  color: $ink-0;
+  padding-left: 8px;
+}
+
+.cfm-dates {
+  margin-top: 6px;
+  color: $ink-2;
+  padding-left: 8px;
+  font-size: 0.9rem;
+}
+
+// ---------------------------------------------------------------------------
+// Reading text & excerpt
+// ---------------------------------------------------------------------------
+
+.cfm-reading {
+  padding-left: 8px;
+  border-left: 2px solid rgba($cyan, 0.3);
+  color: $ink-2;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.cfm-excerpt {
+  margin-top: 8px;
+  font-size: 0.85rem;
+  font-style: italic;
+  color: rgba($ink-1, 0.85);
+  line-height: 1.5;
+
+  @media (width <= 768px) {
+    display: none;
+  }
+}
+
+.cfm-excerpt-text {
+  @include text-clamp(10);
+}
+
+.cfm-excerpt-more {
+  display: inline;
+  margin-left: 6px;
+  font-style: normal;
+  font-weight: 600;
+  color: $cyan;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color $transition-fast;
+
+  &:hover {
+    color: $pink;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Sort header & icon
+// ---------------------------------------------------------------------------
+
+.cfm-reading-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  position: relative;
+}
+
+.cfm-sort-btn {
+  @include icon-btn;
+
+  &:hover .cfm-sort-tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%);
+  }
+}
+
+.cfm-sort-icon {
+  width: 20px;
+  height: 20px;
+  transition: all $transition-fast;
+
+  &.sort-lesson {
+    stroke: $cyan;
+    transform: rotate(0deg);
+  }
+
+  &.sort-chrono {
+    stroke: $purple;
+    transform: rotate(180deg);
+  }
+}
+
+.cfm-sort-tooltip {
+  position: absolute;
+  top: calc(100% + 16px);
+  left: 50%;
+  transform: translate(-50%, -8px);
+  z-index: 10;
+  @include tooltip;
+
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-bottom-color: $bg-2;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Current-week highlight
+// ---------------------------------------------------------------------------
+
+.data-table tbody tr.current-week {
+  background: linear-gradient(145deg, rgba($green, 0.18), rgba($cyan, 0.12), rgb(0 0 0 / 5%));
+  box-shadow:
+    inset 6px 0 0 $green,
+    $shadow-table-row;
+
+  .cfm-weeknum {
+    color: $green;
+  }
+
+  .cfm-dates {
+    color: $ink-1;
+  }
+
+  .row-overlay {
+    display: none;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Row overlay flush corners (desktop first row)
+// ---------------------------------------------------------------------------
+
+@media (width > 768px) {
+  .data-table tbody tr:first-child {
+    .row-bg,
+    .row-overlay {
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// FABs
+// ---------------------------------------------------------------------------
+
+.cfm-scroll-fab {
+  bottom: 24px;
+  right: 24px;
+  background: linear-gradient(145deg, rgba($purple, 0.25), rgba($cyan, 0.15));
+  box-shadow:
+    12px 12px 24px rgb(0 0 0 / 55%),
+    -6px -6px 16px rgb(255 255 255 / 6%),
+    inset 0 1px rgb(255 255 255 / 8%);
+
+  &:hover {
+    background: linear-gradient(145deg, rgba($purple, 0.4), rgba($cyan, 0.3));
+    box-shadow:
+      16px 16px 32px rgb(0 0 0 / 65%),
+      -8px -8px 20px rgb(255 255 255 / 8%),
+      inset 0 1px rgb(255 255 255 / 12%);
+  }
+
+  &:active {
+    transform: translateY(2px);
+  }
+
+  @media (width <= $fab-breakpoint) {
+    width: $fab-collapsed-size;
+    height: $fab-collapsed-size;
+    padding: 0;
+    border-radius: 50%;
+
+    .cfm-scroll-label {
+      display: none;
+    }
+  }
+}
+
+.cfm-scroll-arrow {
+  width: 24px;
+  height: 24px;
+  color: $ink-0;
+}
+
+.cfm-scroll-label {
+  @include fab-label;
+}
+
+.cfm-sort-fab {
+  bottom: 24px;
+  left: 24px;
+  background: linear-gradient(145deg, $bg-2, $bg-3);
+  box-shadow:
+    8px 8px 20px rgb(0 0 0 / 55%),
+    -4px -4px 12px rgb(255 255 255 / 5%),
+    inset 0 1px rgb(255 255 255 / 8%);
+
+  &:hover {
+    background: linear-gradient(145deg, rgba($cyan, 0.25), rgba($purple, 0.2));
+    box-shadow:
+      12px 12px 28px rgb(0 0 0 / 65%),
+      -6px -6px 16px rgb(255 255 255 / 7%),
+      inset 0 1px rgb(255 255 255 / 12%);
+  }
+
+  &:active {
+    box-shadow:
+      inset 4px 4px 10px rgb(0 0 0 / 50%),
+      inset -2px -2px 6px rgb(255 255 255 / 3%);
+  }
+
+  @media (width <= $fab-breakpoint) {
+    width: $fab-collapsed-size;
+    height: $fab-collapsed-size;
+    padding: 0;
+    border-radius: 50%;
+
+    .cfm-sort-fab-label {
+      display: none;
+    }
+  }
+}
+
+.cfm-sort-fab-label {
+  @include fab-label;
+}
+
+.cfm-sort-fab-tooltip {
+  position: absolute;
+  left: calc(100% + 12px);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 201;
+  @include tooltip;
+
+  font-size: 0.8rem;
+  padding: 8px 14px;
+
+  &::before {
+    content: '';
+    position: absolute;
+    right: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 6px solid transparent;
+    border-right-color: $bg-2;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Mobile overrides specific to CFM column layout
+// ---------------------------------------------------------------------------
+
+@media (width <= 768px) {
+  .col-week {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid $stroke;
+    padding-bottom: 4px;
+    margin-bottom: 4px;
+
+    .cfm-weeknum {
+      padding-left: 0;
+    }
+
+    .cfm-dates {
+      margin-top: 0;
+      padding-left: 0;
+    }
+  }
+
+  .col-cfm {
+    margin-bottom: 4px;
+    padding: 2px 0;
+
+    a {
+      font-size: 0.9rem;
+      margin-bottom: 2px;
+    }
+  }
+}

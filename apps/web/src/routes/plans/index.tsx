@@ -8,8 +8,8 @@ export const Route = createFileRoute('/plans/')({
 
 function PlansPage() {
   return (
-    <div className="plans-page">
-      <div className="plans-header">
+    <div className="page">
+      <div className="page-header">
         <h1>Study Plans</h1>
         <p>
           Follow structured reading schedules to guide your scripture study throughout the year.

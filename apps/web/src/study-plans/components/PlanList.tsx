@@ -38,7 +38,7 @@ const PLANS = [
 
 export function PlanList() {
   return (
-    <div className="plan-grid">
+    <div className="card-grid">
       {PLANS.map((plan) => (
         <PlanCard key={plan.slug} {...plan} />
       ))}

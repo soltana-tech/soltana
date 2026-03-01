@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
+import { Fab } from '~/shared/components/Fab';
 import { useReadingProgress } from '~/shared/hooks/useReadingProgress';
 import type { ViewMode, Week } from '~/shared/lib/types';
 import { distributeAcrossDays, formatChapters } from '~/shared/lib/utils/chapterFormatter';
@@ -54,7 +55,7 @@ function SortIcon({ className }: { className: string }) {
   );
 }
 
-export function CfmTimeline() {
+export function LdsCfm() {
   const [viewMode, setViewMode] = useState<ViewMode>(() => {
     if (typeof window === 'undefined') return 'lesson';
     const saved = localStorage.getItem('soltana-view-mode');
@@ -97,7 +98,6 @@ export function CfmTimeline() {
     };
   }, []);
 
-  // Lazy-load row background images as they scroll into view
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -116,7 +116,7 @@ export function CfmTimeline() {
       { rootMargin: '200px' }
     );
 
-    document.querySelectorAll('.cfm-week-bg[data-bg-image]').forEach((el) => {
+    document.querySelectorAll('.row-bg[data-bg-image]').forEach((el) => {
       observer.observe(el);
     });
     return () => {
@@ -130,10 +130,11 @@ export function CfmTimeline() {
 
   return (
     <div className="cfm-timeline">
-      <button
-        className={`cfm-scroll-fab${scrollFabVisible ? ' visible' : ''}`}
+      <Fab
+        visible={scrollFabVisible}
         onClick={scrollToCurrentWeek}
-        aria-label="Scroll to current week"
+        ariaLabel="Scroll to current week"
+        className="cfm-scroll-fab"
       >
         <svg
           className="cfm-scroll-arrow"
@@ -148,21 +149,22 @@ export function CfmTimeline() {
           <polyline points="6 9 12 15 18 9" />
         </svg>
         <span className="cfm-scroll-label">Current Week</span>
-      </button>
+      </Fab>
 
-      <button
-        className={`cfm-sort-fab${sortFabVisible ? ' visible' : ''}`}
+      <Fab
+        visible={sortFabVisible}
         onClick={toggleViewMode}
-        aria-label="Toggle reading order"
+        ariaLabel="Toggle reading order"
+        className="cfm-sort-fab"
       >
         <SortIcon className={sortIconClass} />
         <span className="cfm-sort-fab-label">Sort</span>
         <span className="cfm-sort-fab-tooltip">{sortTooltip}</span>
-      </button>
+      </Fab>
 
-      <div className="cfm-table-wrap">
-        <div className="cfm-scroll">
-          <table className="cfm-table" aria-label="Old Testament study timeline table">
+      <div className="data-table-wrap cfm-table-wrap">
+        <div className="data-scroll">
+          <table className="data-table" aria-label="Old Testament study timeline table">
             <thead ref={theadRef}>
               <tr>
                 <th>Week</th>
@@ -223,9 +225,9 @@ function WeekRow({ week, viewMode, isCurrent, isDayRead, toggleDay }: WeekRowPro
     >
       <td className="col-week">
         {week.cfm.image && (
-          <span className="cfm-week-bg" data-bg-image={week.cfm.image} aria-hidden="true" />
+          <span className="row-bg" data-bg-image={week.cfm.image} aria-hidden="true" />
         )}
-        <span className="cfm-row-overlay" aria-hidden="true" />
+        <span className="row-overlay" aria-hidden="true" />
         <div className="cfm-weeknum">{formatWeekNumber(week.week)}</div>
         <div className="cfm-dates">{week.dateLabel}</div>
       </td>
@@ -251,7 +253,7 @@ function WeekRow({ week, viewMode, isCurrent, isDayRead, toggleDay }: WeekRowPro
       </td>
 
       <td className="col-readings">
-        <div className="cfm-day-buttons">
+        <div className="btn-group">
           {dailyReadings.map((reading, dayIndex) => {
             const isEmpty = reading === '';
             const isRead = isDayRead(week.week, dayIndex);
@@ -259,15 +261,15 @@ function WeekRow({ week, viewMode, isCurrent, isDayRead, toggleDay }: WeekRowPro
             return (
               <button
                 key={dayIndex}
-                className={`cfm-day-btn${isRead ? ' read' : ''}${isEmpty ? ' empty' : ''}`}
+                className={`action-btn${isRead ? ' read' : ''}${isEmpty ? ' empty' : ''}`}
                 disabled={isEmpty}
                 onClick={() => {
                   toggleDay(week.week, dayIndex);
                 }}
                 aria-pressed={isRead}
               >
-                <span className="cfm-day-label">Day {dayOfYearBase + dayIndex + 1}</span>
-                <span className={`cfm-day-reading${isEmpty ? ' empty' : ''}`}>
+                <span className="action-label">Day {dayOfYearBase + dayIndex + 1}</span>
+                <span className={`action-text${isEmpty ? ' empty' : ''}`}>
                   {isEmpty ? 'No reading' : reading}
                 </span>
               </button>

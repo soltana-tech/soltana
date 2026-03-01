@@ -33,7 +33,7 @@ const FEATURES = [
 
 function LandingPage() {
   return (
-    <div className="landing">
+    <div className="page">
       <section className="landing-hero">
         <h1>Soltana</h1>
         <p>
@@ -42,9 +42,9 @@ function LandingPage() {
         </p>
       </section>
 
-      <section className="landing-features">
+      <section className="card-grid">
         {FEATURES.map((feature) => (
-          <Link key={feature.to} to={feature.to} className="feature-card">
+          <Link key={feature.to} to={feature.to} className="card">
             <h3>{feature.title}</h3>
             <p>{feature.description}</p>
           </Link>

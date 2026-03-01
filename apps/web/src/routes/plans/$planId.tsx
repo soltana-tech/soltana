@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
 
-import { CfmTimeline } from '~/study-plans/components/CfmTimeline';
+import { LdsCfm } from '~/study-plans/components/LdsCfm';
 
 export const Route = createFileRoute('/plans/$planId')({
   component: PlanDetailPage,
@@ -10,11 +10,11 @@ function PlanDetailPage() {
   const { planId } = Route.useParams();
 
   if (planId === 'cfm-ot-2026') {
-    return <CfmTimeline />;
+    return <LdsCfm />;
   }
 
   return (
-    <div className="plans-page">
+    <div className="page">
       <h1>Study Plan</h1>
       <p>This plan is coming soon.</p>
     </div>
