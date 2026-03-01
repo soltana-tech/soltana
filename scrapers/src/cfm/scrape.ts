@@ -237,9 +237,9 @@ async function scrapeWeeks(weeks: Week[], options: CliOptions): Promise<void> {
 
           if (imageResult.success && imageResult.imageUrl) {
             week.cfm.image = imageResult.imageUrl;
-            console.log(`    ✓ [Week ${week.week}] Image URL collected`);
+            console.log(`    [ok] [Week ${week.week}] Image URL collected`);
           } else {
-            console.log(`    ✗ [Week ${week.week}] Image failed: ${imageResult.error}`);
+            console.log(`    [fail] [Week ${week.week}] Image failed: ${imageResult.error}`);
             return { success: false };
           }
         }
@@ -252,10 +252,10 @@ async function scrapeWeeks(weeks: Week[], options: CliOptions): Promise<void> {
           if (excerptResult.success && excerptResult.excerpt) {
             week.cfm.excerpt = excerptResult.excerpt;
             console.log(
-              `    ✓ [Week ${week.week}] Excerpt collected (${excerptResult.excerpt.length} chars)`
+              `    [ok] [Week ${week.week}] Excerpt collected (${excerptResult.excerpt.length} chars)`
             );
           } else {
-            console.log(`    ✗ [Week ${week.week}] Excerpt failed: ${excerptResult.error}`);
+            console.log(`    [fail] [Week ${week.week}] Excerpt failed: ${excerptResult.error}`);
             return { success: false };
           }
         }
@@ -263,7 +263,7 @@ async function scrapeWeeks(weeks: Week[], options: CliOptions): Promise<void> {
         return { success: true };
       } catch (error) {
         const message = error instanceof Error ? error.message : String(error);
-        console.log(`  ✗ [Week ${week.week}] Error: ${message}`);
+        console.log(`  [fail] [Week ${week.week}] Error: ${message}`);
         return { success: false };
       } finally {
         await page.close();
