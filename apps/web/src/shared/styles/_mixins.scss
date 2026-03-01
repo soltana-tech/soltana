@@ -360,18 +360,3 @@
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }
-
-// ---------------------------------------------------------------------------
-// Legacy aliases (kept for backward compat)
-// ---------------------------------------------------------------------------
-
-@mixin gradient-scroll-nav {
-  background: linear-gradient(145deg, rgba($purple, 0.25), rgba($cyan, 0.15));
-}
-
-@mixin table-row-shadow {
-  box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 4%),
-    inset 0 -1px 0 rgb(0 0 0 / 20%),
-    0 2px 8px rgb(0 0 0 / 30%);
-}

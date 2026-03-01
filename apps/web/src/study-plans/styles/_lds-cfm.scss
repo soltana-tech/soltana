@@ -7,7 +7,6 @@
 // This file only contains styles unique to the CFM study plan layout.
 // ---------------------------------------------------------------------------
 
-// Container uses the large page width
 .cfm-timeline {
   @include page-container($page-max-width-lg);
 

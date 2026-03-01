@@ -29,7 +29,6 @@ function saveToStorage(readDays: Set<string>): void {
 
 /**
  * Manages reading progress state with localStorage persistence.
- * Future: authenticated users sync via D1 server functions.
  */
 export function useReadingProgress() {
   const [readDays, setReadDays] = useState<Set<string>>(new Set());
