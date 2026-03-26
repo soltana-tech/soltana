@@ -228,18 +228,18 @@ function WeekRow({ week, viewMode, isCurrent, isDayRead, toggleDay }: WeekRowPro
           <span className="row-bg" data-bg-image={week.cfm.image} aria-hidden="true" />
         )}
         <span className="row-overlay" aria-hidden="true" />
-        <div className="cfm-weeknum">{formatWeekNumber(week.week)}</div>
-        <div className="cfm-dates">{week.dateLabel}</div>
+        <div className="cfm-weeknum text-2xl">{formatWeekNumber(week.week)}</div>
+        <div className="cfm-dates text-md">{week.dateLabel}</div>
       </td>
 
       <td className="col-cfm">
-        <a href={week.cfm.link} target="_blank" rel="noopener noreferrer">
+        <a className="text-lg" href={week.cfm.link} target="_blank" rel="noopener noreferrer">
           &ldquo;{week.cfm.title}&rdquo;
         </a>
-        <div className="cfm-reading">{week.cfm.reading}</div>
+        <div className="cfm-reading text-base">{week.cfm.reading}</div>
         {week.cfm.excerpt && (
-          <div className="cfm-excerpt">
-            <span className="cfm-excerpt-text">{week.cfm.excerpt}</span>
+          <div className="cfm-excerpt text-sm">
+            <span className="cfm-excerpt-text line-clamp-10">{week.cfm.excerpt}</span>
             <a
               href={week.cfm.link}
               target="_blank"

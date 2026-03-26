@@ -1,5 +1,13 @@
 @use 'variables' as *;
 
+@font-face {
+  font-family: 'TriniteNo2';
+  src: url('/fonts/TriniteNo2Roman.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -13,9 +21,8 @@
 
 html {
   height: 100%;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizelegibility;
+
+  // soltana-ui sets the fluid html font-size; only layout/bg overrides needed here.
   background-color: $bg-0;
   scrollbar-gutter: stable;
 }
@@ -25,10 +32,9 @@ body {
   margin: 0;
   padding: 0;
   color: $ink-0;
-  font:
-    #{$font-size-base}/ 1.6 Georgia,
-    'Times New Roman',
-    serif;
+  font-family: 'TriniteNo2', Georgia, 'Times New Roman', serif;
+  font-size: var(--text-base);
+  line-height: var(--leading-base);
   letter-spacing: 0.03em;
   background:
     radial-gradient(ellipse 1200px 800px at 15% 10%, rgba($purple, 0.18), transparent 60%),
@@ -91,16 +97,18 @@ h3 {
 }
 
 h1 {
-  font-size: 2.5rem;
-  line-height: 1.2;
+  font-size: var(--text-4xl);
+  line-height: var(--leading-4xl);
 }
 
 h2 {
-  font-size: 1.5rem;
+  font-size: var(--text-3xl);
+  line-height: var(--leading-3xl);
   color: $ink-1;
 }
 
 h3 {
-  font-size: 1.25rem;
+  font-size: var(--text-2xl);
+  line-height: var(--leading-2xl);
   color: $ink-1;
 }

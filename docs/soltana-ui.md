@@ -65,6 +65,20 @@ Stylesheets load in this order (set in `__root.tsx` head links):
 
 This ensures soltana's overrides always win.
 
+### Typography: where sizing should live
+
+Component styles in `soltana-ui` often set typography directly on their own selectors (for example
+`.table th`, `.action-item-label`). Those selectors can have higher specificity than utility
+classes like `.text-sm` or they may be declared later in the cascade, which means adding `.text-*`
+classes to individual elements does not reliably override component sizing.
+
+Guidelines:
+
+- **Use `.text-*` utilities** when the element is not already sized by a component selector.
+- **Change the component** (in `soltana-ui`) when a component’s default sizing is wrong globally.
+- **Change the feature stylesheet** (in Soltana) when a single feature needs component-specific
+  sizing (e.g. CFM table header size).
+
 ### Dracula theme overrides
 
 `src/shared/styles/_dracula-overrides.scss` maps Soltana's Dracula color palette onto

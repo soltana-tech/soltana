@@ -10,12 +10,6 @@
     (-$size) (-$size) ($size * 2.4) $shadow-hi;
 }
 
-@mixin neo-inset($size: 10px) {
-  box-shadow:
-    inset $size $size ($size * 2) rgb(0 0 0 / 45%),
-    inset (-$size) (-$size) ($size * 2) rgb(255 255 255 / 5%);
-}
-
 @mixin glass-card {
   border-radius: $radius-lg;
   border: 1px solid $stroke;
@@ -32,32 +26,9 @@
     inset 0 1px 0 rgb(255 255 255 / 4%);
 }
 
-@mixin neo-button-pressed {
-  background-color: rgba($green, 0.06);
-  border: 1px solid rgba($green, 0.12);
-  box-shadow:
-    inset 6px 6px 12px rgb(0 0 0 / 55%),
-    inset -3px -3px 8px rgb(255 255 255 / 3%);
-}
-
 // ---------------------------------------------------------------------------
 // Typography helpers
 // ---------------------------------------------------------------------------
-
-@mixin reading-text {
-  font-size: $font-size-reading;
-  line-height: 1.6;
-  letter-spacing: $letter-spacing-reading;
-}
-
-@mixin text-clamp($lines: 3) {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: $lines;
-  line-clamp: $lines;
-  -webkit-box-orient: vertical;
-}
 
 // ---------------------------------------------------------------------------
 // Layout
@@ -70,207 +41,8 @@
 }
 
 // ---------------------------------------------------------------------------
-// Data table system
-// ---------------------------------------------------------------------------
-
-@mixin data-table-wrap {
-  padding: $page-padding;
-  @include glass-card;
-  @include neo-raised(10px);
-}
-
-@mixin data-table {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0 $table-row-spacing;
-  min-width: $table-min-width;
-  border: none;
-
-  thead {
-    background: $table-header-bg;
-    border-radius: $radius-lg $radius-lg 0 0;
-
-    tr {
-      border: none;
-    }
-
-    th {
-      position: sticky;
-      top: 0;
-      z-index: 2;
-      text-align: center;
-      font-size: 1.05rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: $ink-1;
-      padding: 20px $page-padding 5px;
-      backdrop-filter: blur(8px);
-      background: $table-header-bg;
-
-      &:first-child {
-        border-top-left-radius: $radius-lg;
-      }
-
-      &:last-child {
-        border-top-right-radius: $radius-lg;
-      }
-
-      &::after {
-        content: '';
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 100%;
-        height: $table-row-spacing;
-        background: $table-header-bg;
-        z-index: 1;
-      }
-    }
-  }
-
-  tbody {
-    td {
-      padding: 12px;
-      border-bottom: none;
-      vertical-align: top;
-      color: $ink-1;
-    }
-
-    tr {
-      position: relative;
-      background: $table-row-bg-odd;
-      border-radius: $radius-md;
-      transition: background $transition-fast;
-      box-shadow: $shadow-table-row;
-
-      &:nth-child(2n) {
-        background: $table-row-bg-even;
-      }
-
-      td:first-child {
-        border-top-left-radius: $radius-md;
-        border-bottom-left-radius: $radius-md;
-      }
-
-      td:last-child {
-        border-top-right-radius: $radius-md;
-        border-bottom-right-radius: $radius-md;
-      }
-    }
-  }
-}
-
-@mixin data-table-flush-first-row {
-  @media (width > 768px) {
-    tbody tr:first-child {
-      border-top-left-radius: 0;
-      border-top-right-radius: 0;
-
-      td:first-child {
-        border-top-left-radius: 0;
-      }
-
-      td:last-child {
-        border-top-right-radius: 0;
-      }
-    }
-  }
-}
-
-@mixin data-table-mobile {
-  @media (width <= 768px) {
-    thead {
-      display: none;
-    }
-
-    tbody tr {
-      display: flex;
-      flex-direction: column;
-      padding: 10px;
-      margin-bottom: 10px;
-      border-radius: $radius-md;
-    }
-
-    tbody td {
-      display: block;
-      width: 100% !important;
-      border-bottom: none;
-      padding: 2px 0;
-    }
-  }
-}
-
-// ---------------------------------------------------------------------------
-// Row overlays
-// ---------------------------------------------------------------------------
-
-@mixin row-bg-image {
-  position: absolute;
-  inset: 0;
-  display: block;
-  border-radius: $radius-md;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  opacity: 0.15;
-  mix-blend-mode: soft-light;
-  filter: brightness(0.6) contrast(1.5);
-  pointer-events: none;
-  z-index: -1;
-}
-
-@mixin row-hover-overlay {
-  position: absolute;
-  inset: 0;
-  display: block;
-  opacity: 0;
-  border-radius: $radius-md;
-  background: linear-gradient(135deg, rgba($pink, 0.06), rgba($purple, 0.06), rgba($cyan, 0.05));
-  transition: opacity $transition-fast;
-  pointer-events: none;
-  z-index: 0;
-}
-
-// ---------------------------------------------------------------------------
 // Buttons
 // ---------------------------------------------------------------------------
-
-@mixin action-btn {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  width: 100%;
-  padding: 8px 14px;
-  border-radius: $radius-sm;
-  cursor: pointer;
-  text-align: left;
-  font: inherit;
-  font-size: 0.9rem;
-  transition:
-    box-shadow $transition-fast,
-    background-color $transition-medium,
-    border-color $transition-medium;
-
-  @include neo-button-raised;
-
-  &:hover:not(:disabled) {
-    box-shadow:
-      8px 8px 20px $shadow-lo,
-      -5px -5px 14px $shadow-hi,
-      inset 0 1px 0 rgb(255 255 255 / 10%);
-  }
-
-  &.read {
-    @include neo-button-pressed;
-  }
-
-  &:disabled,
-  &.empty {
-    opacity: 0.4;
-    cursor: not-allowed;
-    pointer-events: none;
-  }
-}
 
 @mixin btn-group($direction: column, $gap: 6px) {
   display: flex;
@@ -327,31 +99,6 @@
 // ---------------------------------------------------------------------------
 // FAB
 // ---------------------------------------------------------------------------
-
-@mixin fab-base {
-  position: fixed;
-  z-index: 200;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid rgb(255 255 255 / 8%);
-  border-radius: $radius-md;
-  backdrop-filter: blur(16px);
-  cursor: pointer;
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(20px);
-  transition:
-    opacity 0.3s ease,
-    visibility 0.3s ease,
-    transform 0.3s ease;
-
-  &.visible {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-  }
-}
 
 @mixin fab-label {
   font-size: 0.75rem;

@@ -41,7 +41,7 @@
 
   &:hover {
     transform: translateY(-2px);
-    border-color: rgba($cyan, 0.15);
+    border-color: color-mix(in srgb, var(--accent-primary) 15%, transparent);
   }
 
   h3 {
@@ -76,11 +76,11 @@
   letter-spacing: 0.06em;
   text-transform: uppercase;
   margin-bottom: 12px;
-  color: $bg-0;
-  background: $cyan;
+  color: var(--text-inverse);
+  background: var(--accent-primary);
 
   &.placeholder {
-    background: $ink-2;
+    background: var(--text-tertiary);
   }
 }
 
