@@ -1,7 +1,9 @@
 import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router';
-import type { ReactNode } from 'react';
+import { type ReactNode, useEffect } from 'react';
+import { initSoltana } from 'soltana-ui';
 
 import { AppShell } from '~/shared/components/layout/AppShell';
+import soltanaCss from 'soltana-ui/scss?url';
 import appCss from '~/shared/styles/main.scss?url';
 
 export const Route = createRootRoute({
@@ -16,7 +18,10 @@ export const Route = createRootRoute({
           'Open-source academic scripture study platform for casual readers, students, seminarians, clergy, and academics.',
       },
     ],
-    links: [{ rel: 'stylesheet', href: appCss }],
+    links: [
+      { rel: 'stylesheet', href: soltanaCss },
+      { rel: 'stylesheet', href: appCss },
+    ],
     scripts: [
       {
         type: 'application/ld+json',
@@ -43,8 +48,12 @@ function RootComponent() {
 }
 
 function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
+  useEffect(() => {
+    initSoltana({ theme: 'dark', relief: 'neumorphic', finish: 'frosted', enhancers: false });
+  }, []);
+
   return (
-    <html lang="en">
+    <html lang="en" data-theme="dark" data-relief="neumorphic" data-finish="frosted">
       <head>
         <HeadContent />
       </head>

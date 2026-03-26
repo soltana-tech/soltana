@@ -1,0 +1,82 @@
+// ---------------------------------------------------------------------------
+// Dracula Palette → soltana-ui Token Overrides
+// ---------------------------------------------------------------------------
+// Maps Soltana's Dracula-inspired color scheme onto soltana-ui's CSS custom
+// property contract. Applied after soltana-ui's base CSS to override the
+// default dark-theme tokens while preserving all relief/finish mechanics.
+// ---------------------------------------------------------------------------
+
+:root,
+[data-theme='dark'] {
+  // Surfaces — Dracula navy background ramp
+  --surface-bg: #0b0d17;
+  --surface-1: #11132a;
+  --surface-2: #171a35;
+  --surface-3: #1f2350;
+  --surface-4: #2a2e5e;
+
+  // Text — Dracula foreground hierarchy
+  --text-primary: #f8f8f2;
+  --text-secondary: #d6d8f3;
+  --text-tertiary: #9aa0c6;
+  --text-muted: #7a80a8;
+  --text-inverse: #0b0d17;
+
+  // Accents — Dracula palette
+  --accent-primary: #8be9fd;
+  --accent-primary-hover: #b0f0ff;
+  --accent-primary-active: #5ec4d8;
+  --accent-secondary: #bd93f9;
+  --accent-secondary-hover: #d4b5ff;
+  --accent-secondary-active: #9a6ee0;
+  --accent-decorative: #ff79c6;
+  --accent-decorative-hover: #ff9cd8;
+  --accent-decorative-subtle: rgb(255 121 198 / 10%);
+
+  // Semantic
+  --color-success: #50fa7b;
+  --color-success-subtle: rgb(80 250 123 / 12%);
+  --color-success-text: #50fa7b;
+  --color-warning: #f1fa8c;
+  --color-warning-subtle: rgb(241 250 140 / 12%);
+  --color-warning-text: #f1fa8c;
+  --color-error: #f55;
+  --color-error-subtle: rgb(255 85 85 / 12%);
+  --color-error-text: #f55;
+  --color-info: #8be9fd;
+  --color-info-subtle: rgb(139 233 253 / 12%);
+  --color-info-text: #8be9fd;
+
+  // Borders
+  --border-default: rgb(255 255 255 / 8%);
+  --border-subtle: rgb(255 255 255 / 4%);
+  --border-strong: rgb(255 255 255 / 12%);
+
+  // Neumorphic channel overrides
+  --shadow-color: 0 0 0;
+  --highlight-color: 255 255 255;
+  --neu-shadow: rgb(0 0 0 / 60%);
+  --neu-light: rgb(255 255 255 / 6%);
+
+  // Glass
+  --glass-opacity: 0.5;
+  --mesh-color-1: #bd93f9;
+  --mesh-color-2: #8be9fd;
+  --mesh-color-3: #ff79c6;
+
+  // States
+  --state-hover: rgb(139 233 253 / 8%);
+  --state-active: rgb(139 233 253 / 14%);
+  --state-focus-ring: rgb(139 233 253 / 40%);
+
+  // Component overrides
+  --card-bg: rgb(17 19 42 / 60%);
+  --card-border: rgb(255 255 255 / 6%);
+  --tooltip-bg: #0b0d17;
+  --tooltip-text: #f8f8f2;
+  --input-bg: rgb(255 255 255 / 4%);
+  --code-bg: #1f2350;
+
+  // Font: prefer Georgia/serif (Soltana's body font) over soltana-ui's Raleway
+  --font-sans: georgia, 'Times New Roman', serif;
+}

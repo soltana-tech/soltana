@@ -1,3 +1,7 @@
+// Dracula palette overrides on soltana-ui tokens
+@use 'dracula-overrides';
+
+// Soltana-specific styles
 @use 'variables';
 @use 'base';
 @use 'components';
