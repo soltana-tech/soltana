@@ -3,7 +3,7 @@
 
 // ---------------------------------------------------------------------------
 // LDS Come, Follow Me -- CFM-specific overrides
-// Generic table/card/FAB structure comes from _components.scss.
+// Generic table/card/FAB structure comes from soltana-ui.
 // This file only contains styles unique to the CFM study plan layout.
 // ---------------------------------------------------------------------------
 
@@ -19,6 +19,94 @@
 }
 
 // ---------------------------------------------------------------------------
+// CFM table structural overrides on soltana-ui's .table
+// ---------------------------------------------------------------------------
+
+.cfm-table {
+  min-width: $table-min-width;
+  border-spacing: 0 $table-row-spacing;
+
+  // Header: flat $bg-2 band with ::after bridge to fill border-spacing gap
+  thead th {
+    text-align: center;
+    font-size: 1.05rem;
+    letter-spacing: 0.1em;
+    padding: 20px $page-padding 5px;
+    background: $table-header-bg;
+    border-bottom: none;
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 100%;
+      height: $table-row-spacing;
+      background: $table-header-bg;
+      z-index: 1;
+    }
+  }
+
+  // Row insets: restore the original 4-layer carved shadow
+  tbody tr {
+    border-radius: $radius-md;
+    box-shadow: $shadow-table-row;
+
+    td:first-child {
+      border-top-left-radius: $radius-md;
+      border-bottom-left-radius: $radius-md;
+    }
+
+    td:last-child {
+      border-top-right-radius: $radius-md;
+      border-bottom-right-radius: $radius-md;
+    }
+  }
+
+  tbody td {
+    padding: 12px;
+    vertical-align: top;
+  }
+}
+
+// soltana-ui's neumorphic relief wraps th corner rules in [data-relief='neumorphic'],
+// giving specificity (0,3,2). Prefix with [data-relief] here to match and let
+// cascade order (CFM loads after soltana-ui) determine the winner.
+[data-relief] .cfm-table thead th {
+  &:first-child {
+    border-radius: $radius-lg 0 0 0;
+  }
+
+  &:last-child {
+    border-radius: 0 $radius-lg 0 0;
+  }
+}
+
+// Mobile: collapse table into stacked cards
+@media (width <= 768px) {
+  .cfm-table {
+    min-width: 100%;
+
+    thead {
+      display: none;
+    }
+
+    tbody tr {
+      display: flex;
+      flex-direction: column;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+
+    tbody td {
+      display: block;
+      width: 100% !important;
+      padding: 2px 0;
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
 // Column widths
 // ---------------------------------------------------------------------------
 
@@ -31,7 +119,7 @@
 
   a {
     font-weight: 600;
-    color: $cyan;
+    color: var(--accent-primary);
     display: block;
     margin-bottom: 6px;
     line-height: 1.4;
@@ -39,7 +127,7 @@
     letter-spacing: 0.04em;
 
     &:hover {
-      color: $pink;
+      color: var(--accent-decorative);
     }
   }
 }
@@ -49,19 +137,51 @@
 }
 
 // ---------------------------------------------------------------------------
+// Action button overrides — deeper neumorphic shadows than soltana-ui defaults
+// ---------------------------------------------------------------------------
+
+.cfm-table .action-item {
+  padding: 8px 14px;
+  border-radius: $radius-sm;
+  font-size: 0.9rem;
+  background-color: rgb(0 0 0 / 4%);
+  border: 1px solid rgb(255 255 255 / 5%);
+  box-shadow:
+    2px 2px 6px rgb(0 0 0 / 50%),
+    -1px -1px 4px rgb(255 255 255 / 3%),
+    inset 0 1px 0 rgb(255 255 255 / 4%);
+
+  &:hover:not(:disabled, .is-empty, .is-active) {
+    box-shadow:
+      8px 8px 20px $shadow-lo,
+      -5px -5px 14px $shadow-hi,
+      inset 0 1px 0 rgb(255 255 255 / 10%);
+  }
+
+  &.is-active,
+  &.is-active:hover {
+    background-color: rgba($green, 0.06);
+    border-color: rgba($green, 0.12);
+    box-shadow:
+      inset 6px 6px 12px rgb(0 0 0 / 55%),
+      inset -3px -3px 8px rgb(255 255 255 / 3%);
+  }
+}
+
+// ---------------------------------------------------------------------------
 // Period label & dates
 // ---------------------------------------------------------------------------
 
 .cfm-weeknum {
   font-weight: 800;
   font-size: $font-size-weeknum;
-  color: $ink-0;
+  color: var(--text-primary);
   padding-left: 8px;
 }
 
 .cfm-dates {
   margin-top: 6px;
-  color: $ink-2;
+  color: var(--text-tertiary);
   padding-left: 8px;
   font-size: 0.9rem;
 }
@@ -72,8 +192,8 @@
 
 .cfm-reading {
   padding-left: 8px;
-  border-left: 2px solid rgba($cyan, 0.3);
-  color: $ink-2;
+  border-left: 2px solid color-mix(in srgb, var(--accent-primary) 30%, transparent);
+  color: var(--text-tertiary);
   font-size: 0.9rem;
   line-height: 1.6;
 }
@@ -82,7 +202,7 @@
   margin-top: 8px;
   font-size: 0.85rem;
   font-style: italic;
-  color: rgba($ink-1, 0.85);
+  color: color-mix(in srgb, var(--text-secondary) 85%, transparent);
   line-height: 1.5;
 
   @media (width <= 768px) {
@@ -99,13 +219,13 @@
   margin-left: 6px;
   font-style: normal;
   font-weight: 600;
-  color: $cyan;
+  color: var(--accent-primary);
   text-decoration: none;
   white-space: nowrap;
   transition: color $transition-fast;
 
   &:hover {
-    color: $pink;
+    color: var(--accent-decorative);
   }
 }
 
@@ -137,12 +257,12 @@
   transition: all $transition-fast;
 
   &.sort-lesson {
-    stroke: $cyan;
+    stroke: var(--accent-primary);
     transform: rotate(0deg);
   }
 
   &.sort-chrono {
-    stroke: $purple;
+    stroke: var(--accent-secondary);
     transform: rotate(180deg);
   }
 }
@@ -170,18 +290,23 @@
 // Current-week highlight
 // ---------------------------------------------------------------------------
 
-.data-table tbody tr.current-week {
-  background: linear-gradient(145deg, rgba($green, 0.18), rgba($cyan, 0.12), rgb(0 0 0 / 5%));
+.cfm-table tbody tr.current-week {
+  background: linear-gradient(
+    145deg,
+    color-mix(in srgb, var(--color-success) 18%, transparent),
+    color-mix(in srgb, var(--accent-primary) 12%, transparent),
+    rgb(0 0 0 / 5%)
+  );
   box-shadow:
-    inset 6px 0 0 $green,
+    inset 6px 0 0 var(--color-success),
     $shadow-table-row;
 
   .cfm-weeknum {
-    color: $green;
+    color: var(--color-success);
   }
 
   .cfm-dates {
-    color: $ink-1;
+    color: var(--text-secondary);
   }
 
   .row-overlay {
@@ -194,7 +319,18 @@
 // ---------------------------------------------------------------------------
 
 @media (width > 768px) {
-  .data-table tbody tr:first-child {
+  .cfm-table tbody tr:first-child {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+
+    td:first-child {
+      border-top-left-radius: 0;
+    }
+
+    td:last-child {
+      border-top-right-radius: 0;
+    }
+
     .row-bg,
     .row-overlay {
       border-top-left-radius: 0;
@@ -215,6 +351,7 @@
     12px 12px 24px rgb(0 0 0 / 55%),
     -6px -6px 16px rgb(255 255 255 / 6%),
     inset 0 1px rgb(255 255 255 / 8%);
+  border-color: rgb(255 255 255 / 8%);
 
   &:hover {
     background: linear-gradient(145deg, rgba($purple, 0.4), rgba($cyan, 0.3));
@@ -243,7 +380,7 @@
 .cfm-scroll-arrow {
   width: 24px;
   height: 24px;
-  color: $ink-0;
+  color: var(--text-primary);
 }
 
 .cfm-scroll-label {
@@ -258,6 +395,7 @@
     8px 8px 20px rgb(0 0 0 / 55%),
     -4px -4px 12px rgb(255 255 255 / 5%),
     inset 0 1px rgb(255 255 255 / 8%);
+  border-color: rgb(255 255 255 / 8%);
 
   &:hover {
     background: linear-gradient(145deg, rgba($cyan, 0.25), rgba($purple, 0.2));
