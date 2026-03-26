@@ -24,6 +24,15 @@ The goal is to be the modern, free, open-source alternative to tools like Blue L
 better UX, genuine multi-faith scope, and academic depth — while occupying a space that Logos
 (expensive, desktop-first) and YouVersion (consumer-focused, no academic tools) do not.
 
+### Study companion and Teach
+
+An **AI study companion** (planned) should behave as an **academic assistant**: citation-grounded
+passage retrieval, translation comparison, attributed interpretive options, and study prompts — not
+as a substitute for live teaching or user composition. **Teach** remains a **user-authored**
+workspace for notes, lessons, and exportable documents; the companion does not generate finished
+sermons or lesson manuscripts for that workspace. See [companion.md](./companion.md) and
+[teach.md](./teach.md).
+
 ---
 
 ## Open Source

@@ -1,0 +1,30 @@
+---
+description: >
+  Corpus boundaries, study companion vs Teach, and retrieval-first AI patterns
+  for the Soltana codebase.
+alwaysApply: true
+---
+
+# Architecture and study companion
+
+## Corpus
+
+- Corpus data enters runtime **only** via the Python pipeline → SQL seeds → D1. **Never** add web app writes to corpus tables.
+- `apps/web` uses Drizzle against D1 for user data and corpus reads.
+
+## Study companion vs Teach
+
+- **Companion** (future): academic research assistant — explain, retrieve, compare translations, cite sources, attribute interpretive views. **Do not** implement flows that generate sermon manuscripts, homiletic outlines, or finished lesson content for users.
+- **Teach**: user-authored markdown/workspace and export. The companion may **not** be wired to author Teach content or “one-click sermon” outputs.
+- **Enforcement**: no companion **tools** or **APIs** that write to Teach, no structured **lesson or sermon draft** responses for Teach insertion, no “insert into Teach” from the companion. Copy-out of citations for manual paste is OK. See `docs/companion.md` and `docs/teach.md`.
+
+## Search and inference (when building these features)
+
+- Target **hybrid retrieval** (lexical + structured + embeddings + rerank), not vector-only over naive chunks.
+- Use **scoped context packets** after retrieval; avoid full-corpus in-context loading per request.
+- Prefer a **small, constrained tool router** over an open-ended autonomous agent loop.
+- See `docs/companion.md`, `docs/search.md`, and `docs/architecture.md` before changing behavior in these areas.
+
+## Docs
+
+- Roadmap: `docs/index.md`. Full detail: `docs/SCOPE.md`, `docs/data-model.md`, `docs/pipeline.md`.

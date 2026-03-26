@@ -36,6 +36,15 @@ class SourceProtocol(Protocol):
 
 SQL seed files → `apps/web/drizzle/seeds/` → loaded into Cloudflare D1. The web app never writes to corpus tables.
 
+### Embeddings (planned)
+
+When hybrid semantic search is implemented (see [search.md](./search.md)), the pipeline (or a
+dedicated worker step) should generate **versioned embeddings** for defined retrieval units (verse,
+pericope, summaries, etc.) and publish them to **Cloudflare Vectorize** with metadata pointing back
+to D1 passage or unit IDs. Embeddings must stay in sync with corpus versions; treat embedding
+model and index version as part of the release story for scripture data. See [architecture.md](./architecture.md)
+**Build artifacts to runtime** for how SQL seeds and Vectorize outputs relate.
+
 ## Source Datasets
 
 ### Freely Redistributable

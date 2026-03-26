@@ -41,7 +41,8 @@ Goals:
 - Keep corpus data open and auditable — only public domain and permissively licensed translations
 
 See [docs/SCOPE.md](docs/SCOPE.md) for the full vision and corpus roadmap, and
-[docs/index.md](docs/index.md) for the phased development roadmap.
+[docs/index.md](docs/index.md) for the phased development roadmap. Planned AI features are described
+in [docs/companion.md](docs/companion.md) (study companion) and [docs/teach.md](docs/teach.md) (user-authored Teach workspace).
 
 ## Development
 

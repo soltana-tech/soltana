@@ -7,23 +7,40 @@ Stack, deployment, monorepo structure, and data flow for Soltana.
 | Layer | Tool |
 | ----- | ---- |
 | Hosting + SSR | Cloudflare Pages |
-| Database | Cloudflare D1 (SQLite at edge) |
+| Primary database | Cloudflare D1 (SQLite at edge) — corpus, users, annotations, structured refs |
+| Vector retrieval | Cloudflare Vectorize — dense embeddings (see [search.md](./search.md)) |
+| Cache / session | Cloudflare KV (or Durable Objects) — optional bounded study packets, rate limits |
+| Object storage | R2 — optional large academic artifacts, pipeline outputs (future) |
 | Auth | Better Auth (self-hosted) |
 | Framework | TanStack Start (React + SSR) |
 | ORM | Drizzle |
+| Inference | Workers AI and/or external LLM APIs via a single gateway (planned) |
 | Styles | soltana-ui design system + project SCSS overrides |
+
+D1 remains the **source of truth** for relational scripture data and user content. Vector indexes and
+cache are **derived or auxiliary** layers, not second copies of the canonical corpus for editing.
 
 ## Monorepo Structure
 
-pnpm workspace with two packages:
+Three top-level projects:
 
-- **apps/web** — TanStack Start web app (React, SSR, Cloudflare Pages)
-- **scrapers** — TypeScript Playwright scrapers (shared Playwright install)
-- **pipeline** — Python ETL project (uv, standalone; not a pnpm member)
+- **apps/web** and **scrapers** — **pnpm workspace members** (shared tooling and lockfile)
+- **pipeline** — **standalone** Python package (uv), **not** part of the pnpm workspace
 
-The pipeline interfaces with the web app only via SQL seed files written to `apps/web/drizzle/seeds/`.
+## Build Artifacts to Runtime
 
-## Data Flow
+The pipeline’s primary handoff to the deployed app is **SQL seeds** → `apps/web/drizzle/seeds/` →
+D1. For hybrid search, **embedding and Vectorize indexing** are additional outputs:
+
+- **Batch path** — Pipeline or a worker job reads normalized corpus + retrieval units, computes
+  embeddings, **upserts** vectors into Vectorize with metadata (passage/unit ids, corpus version).
+- **Incremental path** — Post-import workers may refresh indexes when only part of the corpus
+  changes; same version metadata as SQL seeds.
+
+So: **relational corpus** flows through SQL seeds; **vector indexes** are derived artifacts tied to
+the same corpus version, not a second editable source of truth.
+
+## Corpus Data Flow
 
 ```text
 Sources (eBible, OSHB, Project Gutenberg, etc.)  →  TypeScript scrapers (CFM, etc.)
@@ -37,7 +54,21 @@ Sources (eBible, OSHB, Project Gutenberg, etc.)  →  TypeScript scrapers (CFM, 
                          Cloudflare D1 (runtime)
 ```
 
-One-directional: sources → scrapers → pipeline → D1. The web app never writes to corpus tables.
+One-directional: sources → scrapers → pipeline → D1. **The web app never writes to corpus tables.**
+
+## Study Companion Data Flow (Planned)
+
+```text
+User query → intent / routing → retrieval orchestrator
+                                      ↓
+              D1 (FTS5, refs, entities) + Vectorize (semantic) + rerank
+                                      ↓
+                         bounded study packet + policy context
+                                      ↓
+              LLM gateway → synthesis → policy / citation checks → response
+```
+
+See [companion.md](./companion.md) for policy, evaluation, and Teach boundaries.
 
 ## Runtime vs Build-time
 
@@ -45,6 +76,7 @@ One-directional: sources → scrapers → pipeline → D1. The web app never wri
 | -------------------- | ------------------ |
 | TanStack Start SSR | Python pipeline |
 | D1 queries via Drizzle | DuckDB + Polars |
+| Vectorize queries | Embedding generation in pipeline / workers |
 | Better Auth | Scrapers (Playwright) |
 | User data (progress, annotations) | Corpus ingestion |
 
@@ -54,3 +86,4 @@ One-directional: sources → scrapers → pipeline → D1. The web app never wri
 - **apps/web** — Routes, layout, study plans (CFM functional), reader/teach/timeline stubs
 - **scrapers** — CFM scraper migrated and functional
 - **pipeline** — Skeleton with CLI and source stubs; all commands raise `NotImplementedError`
+- **Companion stack** — Not wired: no LLM gateway, Vectorize bindings, or retrieval orchestrator in app yet
