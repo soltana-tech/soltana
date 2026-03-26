@@ -5,7 +5,7 @@ Strategy for building and integrating the soltana-ui design system alongside Sol
 ## Design System
 
 - **Repository** — [soltana-tech/soltana-ui](https://github.com/soltana-tech/soltana-ui)
-- **Model** — Theme × relief × finish orthogonal axes (e.g. Dracula + neumorphic + gloss)
+- **Model** — Theme × relief × finish orthogonal axes (e.g. Dracula + neumorphic + frosted)
 - **User-selectable** — Users choose their display mode; neumorphic is opt-in, not imposed
 
 ## Strategy: Dogfood, Don't Migrate
@@ -28,26 +28,97 @@ This avoids two failure modes:
 soltana-ui should never block forward progress on Soltana. If a component isn't ready for
 extraction, keep the local SCSS and extract it later.
 
-## Design Tokens First
+## Local Development Linkage
 
-Before extracting components, establish the design token layer in soltana-ui:
+During development, soltana consumes soltana-ui from the local filesystem so that changes
+in either repo are reflected immediately without publishing.
 
-- Color palette (Dracula as the default theme)
-- Typography scale and font variables (TriniteNo2, Georgia/Times fallback)
-- Spacing and sizing scale
-- Relief variants (neumorphic, matte) as CSS class modifiers
+### How it works
 
-Once tokens are in place, extracted components compose from them and theme-switching works
-automatically.
+```json
+// apps/web/package.json
+"soltana-ui": "link:/home/scott/Repos/soltana-ui/packages/soltana-ui"
+```
 
-## Current State
+pnpm's `link:` protocol creates a symlink from `node_modules/soltana-ui` to the soltana-ui
+source directory. Two imports flow through this symlink:
 
-- **Standalone SCSS** — Active; all styles currently live in `src/shared/styles/`
-- **Dracula neumorphic** — Dark background, accent palette, raised/pressed buttons, glassmorphism
-- **soltana-ui** — Not yet integrated; extraction begins when first component stabilizes
+| Import | Resolves to | Purpose |
+| ------ | ----------- | ------- |
+| `import { initSoltana } from 'soltana-ui'` | `dist/soltana-ui.js` | JS runtime (theme init) |
+| `import soltanaCss from 'soltana-ui/scss?url'` | `src/styles/index.scss` | SCSS source for Vite to compile |
+
+The `soltana-ui/scss` export points to **raw SCSS source** (`src/styles/index.scss`), not
+pre-built CSS. Vite compiles it using soltana's own `sass` devDependency, which means:
+
+- Editing any `.scss` file in soltana-ui triggers Vite HMR in soltana instantly
+- No `pnpm build` in soltana-ui needed for style changes during development
+- JS changes (`initSoltana`, enhancers) still require `pnpm build` in soltana-ui since
+  soltana imports from `dist/`
+
+### Cascade order
+
+Stylesheets load in this order (set in `__root.tsx` head links):
+
+1. `soltana-ui/scss` — base design system tokens, relief/finish mechanics, components
+2. `main.scss` — Dracula overrides (`_dracula-overrides.scss`), then soltana-specific styles
+
+This ensures soltana's overrides always win.
+
+### Dracula theme overrides
+
+`src/shared/styles/_dracula-overrides.scss` maps Soltana's Dracula color palette onto
+soltana-ui's CSS custom property contract (e.g. `--accent-primary: #8be9fd`). This file
+loads first within `main.scss` via `@use 'dracula-overrides'`.
+
+### What changes for production
+
+When soltana-ui is published to npm, two things change:
+
+| | Development | Production |
+| - | ----------- | ---------- |
+| **Dependency** | `"soltana-ui": "link:..."` | `"soltana-ui": "^x.y.z"` |
+| **CSS import** | `soltana-ui/scss?url` (SCSS source) | `soltana-ui/css?url` (pre-built CSS) |
+
+Concretely:
+
+1. **`apps/web/package.json`** — replace `link:` with a semver range
+2. **`src/routes/__root.tsx`** — change the import from `soltana-ui/scss?url` to
+   `soltana-ui/css?url`
+3. **`sass` devDependency** — no longer needed for soltana-ui compilation (still needed for
+   soltana's own SCSS)
+
+No other files change. The JS import (`import { initSoltana } from 'soltana-ui'`) and
+`_dracula-overrides.scss` work identically in both modes.
+
+## Design Tokens
+
+soltana-ui's token layer is established and active. Soltana overrides the default dark theme
+via `_dracula-overrides.scss`, covering:
+
+- Surface colors (navy background ramp)
+- Text hierarchy (Dracula foreground)
+- Accent palette (cyan, purple, pink)
+- Semantic colors (success, warning, error, info)
+- Neumorphic shadow/highlight channels
+- Glass/mesh gradient colors
+- Font stack (Georgia/serif over soltana-ui's default Raleway)
+
+## Components Extracted
+
+| soltana-ui component | soltana usage | File |
+| -------------------- | ------------- | ---- |
+| `.table`, `.table-panel`, `.table-scroll` | CFM study plan table | `_tables.scss` |
+| `.row-bg`, `.row-overlay` | Row background art + hover gradient | `_tables.scss` |
+| `.action-list`, `.action-item` | Daily reading buttons | `_action-list.scss` |
+| `.fab`, `.fab-extended`, `.fab-controlled` | Scroll-to-week + sort FABs | `_buttons.scss` |
+
+Components not yet extracted (still local SCSS): `.page`, `.card`, `.badge`, `.icon-btn`,
+navbar, landing page.
 
 ## Status
 
-- **Design tokens** — Not yet defined in soltana-ui; first extraction pass establishes these
-- **Components extracted** — None yet
-- **Integration** — No soltana-ui dependency in `apps/web` yet
+- **Design tokens** — Active; Dracula overrides applied via `_dracula-overrides.scss`
+- **Components extracted** — Tables, action lists, FABs
+- **Integration** — `link:` dependency in `apps/web`; SCSS source consumed for live HMR
+- **Visual parity** — Confirmed via Playwright before/after screenshots

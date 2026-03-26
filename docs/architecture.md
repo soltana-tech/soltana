@@ -11,7 +11,7 @@ Stack, deployment, monorepo structure, and data flow for Soltana.
 | Auth | Better Auth (self-hosted) |
 | Framework | TanStack Start (React + SSR) |
 | ORM | Drizzle |
-| Styles | Standalone SCSS (Dracula neumorphic) |
+| Styles | soltana-ui design system + project SCSS overrides |
 
 ## Monorepo Structure
 
