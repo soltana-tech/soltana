@@ -18,7 +18,7 @@ _Open-source academic scripture study platform. Knowledge shared freely._
 </div>
 
 > [!IMPORTANT]
-> This project is currently in pre-release, with the initial release scheduled for January 1, 2027.
+> This project is currently in pre-release. See [docs/index.md](docs/index.md) for the phased development roadmap.
 
 ## Overview
 

@@ -22,7 +22,8 @@ Structured sections, inline scripture references (auto-linked to reader), export
 
 ## Status
 
-- **Entirely stubbed** — `TeachDashboard` placeholder
-- **Route** — `/teach` (teach/index.tsx)
-- **Dependencies** — ECharts not yet added to package.json
-- **Phase** — Lesson builder in Phase 4; earlier phases focus on reader and study plans
+- **Entirely stubbed** — `TeachDashboard` placeholder at `/teach`
+- **Nav link** — Should be removed from the navbar until Phase 5; the route can remain for
+  development access but should not be surfaced to users
+- **Dependencies** — ECharts not yet added to `package.json`
+- **Phase** — Phase 5

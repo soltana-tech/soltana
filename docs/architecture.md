@@ -26,7 +26,7 @@ The pipeline interfaces with the web app only via SQL seed files written to `app
 ## Data Flow
 
 ```text
-Sources (eBible, OSHB, Sefaria, etc.)  →  TypeScript scrapers (CFM, etc.)
+Sources (eBible, OSHB, Project Gutenberg, etc.)  →  TypeScript scrapers (CFM, etc.)
                     ↓                                    ↓
                     └──────────────┬────────────────────┘
                                    ↓

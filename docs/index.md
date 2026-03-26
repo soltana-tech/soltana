@@ -15,7 +15,7 @@
 | [search.md](./search.md) | FTS5 keyword search, Cloudflare Vectorize semantic search |
 | [pipeline.md](./pipeline.md) | Python ETL, source modules, CLI, source datasets table |
 | [scrapers.md](./scrapers.md) | TypeScript Playwright scrapers, CFM scraper |
-| [soltana-ui.md](./soltana-ui.md) | Planned SCSS → design system migration |
+| [soltana-ui.md](./soltana-ui.md) | Incremental design system extraction; dogfooding strategy |
 
 ---
 
@@ -33,76 +33,108 @@
 
 ---
 
-## Phase 2: Core Features — Next Up
+## Phase 2: Reader MVP
+
+The singular goal of this phase is canonical scripture text in the reader. Nothing else ships until
+this works well.
 
 ### Scripture Text
 
 - [ ] eBible KJV ingestion via pipeline — see [pipeline.md](./pipeline.md)
 - [ ] `passages` table populated in D1 — see [data-model.md](./data-model.md)
 - [ ] `PassageView` renders real text — `src/reader/components/PassageView.tsx`
+- [ ] Book/chapter navigation
+
+### Reading Experience
+
+- [ ] Reading preferences UI (font size, layout, red-letter) — `src/reader/`
+- [ ] FTS5 virtual table on `passages` — see [search.md](./search.md)
+- [ ] Search UI in reader
+
+---
+
+## Phase 3: Persistence + Translations
 
 ### Reader
 
 - [ ] Annotation CRUD (highlight, underline, note, link) — see [reader.md](./reader.md)
 - [ ] Notebooks and tagging — see [reader.md](./reader.md)
-- [ ] Reading preferences UI (layout, font, red-letter) — `src/reader/`
-- [ ] LDS cross-references and JST footnotes
 
-### Study Plans
+### Auth + Sync
 
 - [ ] D1 progress sync for authenticated users — see [study-plans.md](./study-plans.md)
 - [ ] localStorage → D1 migration prompt on first sign-in
-- [ ] Additional built-in plans (Bible in a Year, Bible in 90 Days, BoM in 90 Days)
-
-### Auth
-
 - [ ] Enforce auth-gated routes (custom plans, annotations) — see [auth.md](./auth.md)
 
-### Search
+### Corpus
 
-- [ ] FTS5 virtual table on `passages` — see [search.md](./search.md)
-- [ ] Search UI in reader
+- [ ] Additional Bible translations — ASV, WEB (already in eBible source)
+- [ ] OpenBible + TSK cross-references — see [pipeline.md](./pipeline.md)
+- [ ] Additional built-in plans (Bible in a Year, Bible in 90 Days)
+
+---
+
+## Phase 4: Jewish + Islamic Corpus + Academic Tooling
+
+### Jewish Corpus
+
+- [ ] Jewish Tanakh — Leeser (1853) and JPS 1917 ingestion via pipeline — see [pipeline.md](./pipeline.md)
+- [ ] Talmud — Rodkinson PD translation; Danby Mishnah pending copyright verification — see [pipeline.md](./pipeline.md)
+
+### Islamic Corpus
+
+- [ ] Quran — Tanzil (Arabic) + Rodwell/Sale PD English translations — see [pipeline.md](./pipeline.md)
+
+### Academic Tooling
+
+- [ ] OSHB morphological data ingestion — see [pipeline.md](./pipeline.md)
+- [ ] Strong's concordance ingestion — see [pipeline.md](./pipeline.md)
+- [ ] Word study UI (Strong's definition per word)
+
+### LDS Standard Works _(licensing required)_
+
+- [ ] Current edition BoM, D&C, Pearl of Great Price — pending IRI licensing
+- [ ] LDS cross-references and JST footnotes — pending IRI licensing
+- [ ] BoM in 90 Days plan — pending IRI licensing; 1830 PD edition usable as interim
+
+---
+
+## Phase 5: Academic Depth + Timeline + Expanded Corpus
+
+### Academic Depth
+
+- [ ] Full word study (BDAG-comparable with open sources)
+- [ ] Original language display (Hebrew OT, Greek NT)
+- [ ] SBLGNT integration
+
+### Corpus (extended)
+
+- [ ] Apostolic Fathers, deuterocanonical texts, Pseudepigrapha — see [pipeline.md](./pipeline.md)
+- [ ] Ancient Near Eastern parallels (Gilgamesh, Enuma Elish) — see [pipeline.md](./pipeline.md)
+- [ ] Zoroastrian texts (Avesta) — see [pipeline.md](./pipeline.md)
+- [ ] Buddhist Pali Canon (SuttaCentral) — see [pipeline.md](./pipeline.md)
 
 ### Historical Timeline
 
 - [ ] Data model finalized — see [timeline.md](./timeline.md)
 - [ ] Initial event dataset (OT people, places, events)
 - [ ] D3.js implementation — `src/timeline/`
+- [ ] Cross-tradition comparative view, perspective layers
 
-### Corpus (extended)
+### Semantic Search
 
-- [ ] Strong's concordance + OSHB morphological data — see [pipeline.md](./pipeline.md)
-- [ ] Word study UI (basic: Strong's definition per word)
-- [ ] OpenBible + TSK cross-references
-- [ ] Apostolic Fathers, deuterocanonical texts, Pseudepigrapha (1 Enoch, Jubilees)
+- [ ] Cloudflare Vectorize — pre-computed embeddings, stable corpus required first — see [search.md](./search.md)
 
----
+### Teach
 
-## Phase 3: Multi-faith + Semantic Search
-
-- [ ] Sefaria ingestion (Talmud, Mishnah) — see [pipeline.md](./pipeline.md)
-- [ ] Quran via Tanzil
-- [ ] Dead Sea Scrolls selected texts
-- [ ] Ancient Near Eastern parallels (Gilgamesh, Enuma Elish)
-- [ ] Semantic search — Cloudflare Vectorize — see [search.md](./search.md)
-- [ ] Timeline: cross-tradition comparative view, perspective layers — see [timeline.md](./timeline.md)
+- [ ] Lesson builder — see [teach.md](./teach.md)
 
 ---
 
-## Phase 4: Academic Depth
-
-- [ ] Full word study (BDAG-comparable with open sources)
-- [ ] Original language display (Hebrew OT, Greek NT)
-- [ ] SBLGNT integration
-- [ ] Zoroastrian texts (Avesta)
-- [ ] Buddhist Pali Canon (SuttaCentral)
-- [ ] Lesson builder — Teach section — see [teach.md](./teach.md)
-- [ ] soltana-ui design system migration — see [soltana-ui.md](./soltana-ui.md)
-
----
-
-## Phase 5: Expansion
+## Phase 6: Expansion
 
 - [ ] Hindu texts (Bhagavad Gita, Upanishads)
+- [ ] Dead Sea Scrolls — pending Craig Davis permission (dssenglishbible.com)
+- [ ] Nag Hammadi — per-text licensing assessment required
 - [ ] Performance optimization (Orama if FTS5 insufficient) — see [search.md](./search.md)
 - [ ] Institutional features (citation export, collaborative annotation)

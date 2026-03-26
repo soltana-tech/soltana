@@ -47,63 +47,143 @@ No foundation affiliation should be pursued until the project has meaningful ado
 
 Each tradition tier should only be added when the previous tier is genuinely excellent — not as
 placeholder content. A user arriving for Talmud study and finding placeholder-quality coverage will
-leave for Sefaria. Quality per tradition in sequence is preferable to breadth with uneven depth.
+leave for a dedicated tool. Quality per tradition in sequence is preferable to breadth with uneven depth.
 
-### Phase 1–2: Abrahamic (Christian + LDS)
+### Christian
 
 **Canonical:**
 
-- Old Testament / Hebrew Bible (KJV, ASV, WEB, Darby — open/public domain)
+- Old Testament / Hebrew Bible (KJV, ASV, WEB, Darby, YLT — public domain)
 - New Testament
-- Book of Mormon, Doctrine and Covenants, Pearl of Great Price (LDS standard works)
 
 **Extracanonical and deuterocanonical:**
 
 - Catholic/Orthodox deuterocanon: Tobit, Judith, 1–2 Maccabees, Wisdom of Solomon, Sirach,
   Baruch, Prayer of Manasseh, 1–2 Esdras, 3–4 Maccabees, Psalm 151, additions to Esther and Daniel
 - Pseudepigrapha: 1 Enoch, Book of Jubilees, Testaments of the Twelve Patriarchs, 4 Ezra,
-  Apocalypse of Abraham, Letter of Aristeas
-- Dead Sea Scrolls: selected texts from the Leon Levy DSS Digital Library
-- Apostolic Fathers: Clement, Ignatius, Polycarp, Didache, Shepherd of Hermas (CCEL)
-- Early Christian writings: Nag Hammadi library (Gospel of Thomas, etc.)
+  Apocalypse of Abraham, Letter of Aristeas (Project Gutenberg, public domain)
+- Apostolic Fathers: Clement, Ignatius, Polycarp, Didache, Shepherd of Hermas (CCEL, public domain)
+- Early Christian writings: Nag Hammadi library (Gospel of Thomas, etc.) — the standard English
+  edition (Robinson, ed., HarperCollins) is copyrighted; older individual translations vary by text.
+  The Coptic source texts are ancient and uncopyrightable. Licensing must be assessed per text
+  before ingestion; external links in the reader are the interim approach.
 
-### Phase 2–3: Jewish + Islamic
+**Dead Sea Scrolls:**
 
-- Tanakh (same source as OT, distinct canonical boundaries)
-- Talmud Bavli, Mishnah, Tosefta via Sefaria
-- Quran (multiple open translations) via Tanzil
+The 223 biblical scrolls are covered by [dssenglishbible.com](https://dssenglishbible.com) by
+Craig Davis (`chdavis29@gmail.com`), a software engineer who transcribed each scroll from public
+manuscript images and built a color-coded variant apparatus showing textual differences from the
+Masoretic Text. The base English text is the WEB (public domain); the scholarly value is Davis's
+transcription work and variant identification, which have no stated open license.
 
-### Phase 3: Ancient Near Eastern Parallels
+The WEB alone does not provide DSS coverage — it is a translation of the traditional MT, not the
+scrolls. Without Davis's transcriptions (or a comparable source), there is no redistributable
+scroll-by-scroll DSS dataset available. In the interim, the reader links externally to his site.
+The path to ingestion is a direct permission request to Davis; he is a strong candidate given his
+deliberate use of public domain materials throughout the project. See [pipeline.md](./pipeline.md).
+
+**LDS Standard Works (licensing required):**
+
+- Book of Mormon, Doctrine and Covenants, Pearl of Great Price (current edition © Intellectual Reserve, Inc.)
+- The 1830 first edition of the Book of Mormon is public domain (Project Gutenberg) and serves
+  as an interim source for BoM text. D&C and Pearl of Great Price have no public domain equivalents.
+- Path: Contact IRI at [intellectualreserve.org](https://www.intellectualreserve.org) for
+  educational/non-commercial open-source licensing.
+
+### Jewish
+
+**Tanakh:**
+
+The Tanakh shares source text with the Christian OT but uses distinct canonical ordering and
+Jewish translation tradition. The following public domain translations are used — no Sefaria dependency:
+
+- **Leeser (1853)** — _The Twenty-Four Books of the Holy Scriptures_ by Isaac Leeser. First
+  complete English translation of the Hebrew Bible by a Jewish scholar. Public domain, available
+  via Project Gutenberg.
+- **JPS 1917** — _The Holy Scriptures According to the Masoretic Text_ by the Jewish Publication
+  Society. Public domain in the US, available via Project Gutenberg and Wikisource.
+- **Benisch (1851–1861)** — _Jewish School and Family Bible_ by Abraham Benisch. Public domain.
+  Available as supplementary coverage.
+
+**Talmud and Mishnah:**
+
+- **Rodkinson (1896–1903)** — English translation of the Babylonian Talmud by Michael L. Rodkinson.
+  Partial (~10 of 63 tractates) but fully public domain. Available via Project Gutenberg.
+- **Danby (1933)** — _The Mishnah_ by Herbert Danby. Likely public domain in the US if copyright
+  was not renewed (verifiable via the Stanford Copyright Renewal Database); public domain in the
+  UK since 2023 (author died 1953). Worth verifying before ingestion.
+- For tractates not covered by PD translations, the reader links externally to Sefaria. Sefaria's
+  Hebrew/Aramaic source text is public domain and may be ingested independently if a clean digital
+  encoding is needed.
+
+### Islamic
+
+- Quran (Arabic) via Tanzil — digital encoding carries a non-commercial restriction; the Arabic
+  text itself is public domain. Acceptable for a non-commercial platform; reassess if monetization
+  is introduced.
+- Multiple public domain English translations of the Quran exist (Rodwell 1861, Sale 1734, Palmer
+  1880) and are available via Project Gutenberg.
+
+### Ancient Near Eastern Parallels
 
 Not scripture in a religious sense, but essential for comparative academic study alongside Genesis:
 
 - Epic of Gilgamesh, Enuma Elish, Atrahasis, other Sumerian and Akkadian texts
+- Public domain English translations via Project Gutenberg (George Smith, R.W. Rogers, etc.)
 
-### Phase 3–4: Zoroastrian
+### Zoroastrian
 
 The Avesta has genuine scholarly connections to early Abrahamic material (eschatology, angelology):
 
-- Gathas, Yasna, Yashts, Vendidad
+- Gathas, Yasna, Yashts, Vendidad via Avesta.org (public domain translations)
 
-### Phase 4: Buddhist
+### Buddhist
 
-- Dhammapada, Sutta Pitaka, Vinaya Pitaka, Abhidhamma Pitaka (Pali Canon via SuttaCentral)
+- Dhammapada, Sutta Pitaka, Vinaya Pitaka, Abhidhamma Pitaka (Pali Canon via SuttaCentral — CC0)
 
-### Phase 5: Hindu
+### Hindu
 
-Hindu scripture is vast. Add only once previous tiers are excellent. Entry point: Bhagavad Gita, then Upanishads.
+Hindu scripture is vast. Add only once previous tiers are excellent. Entry point: Bhagavad Gita,
+then Upanishads. Multiple public domain English translations exist (Edwin Arnold, etc.).
 
-### Translation Licensing
+---
 
-Most modern translations (NIV, ESV, NASB, NLT) are strictly licensed. Only open/public domain translations are used:
+## Translation Licensing
 
-| Translation | Notes |
-| ----------- | ----- |
-| KJV | Public domain; LDS official English translation |
-| ASV | Public domain |
-| WEB — World English Bible | Public domain, modern English |
-| Darby | Public domain |
-| YLT — Young's Literal Translation | Public domain |
+### Open / Public Domain
+
+All ingested translations must be public domain or carry a permissive license compatible with
+open-source redistribution. Modern translations (NIV, ESV, NASB, NLT, NLV, NRSV) are strictly
+licensed and are not used.
+
+| Translation | Tradition | Notes |
+| ----------- | --------- | ----- |
+| KJV | Christian | Public domain |
+| ASV | Christian | Public domain |
+| WEB — World English Bible | Christian | Public domain, modern English |
+| Darby | Christian | Public domain |
+| YLT — Young's Literal Translation | Christian | Public domain |
+| Leeser (1853) | Jewish | Public domain |
+| JPS 1917 | Jewish | Public domain (US) |
+| Benisch (1851–1861) | Jewish | Public domain |
+| Rodkinson Talmud (1896–1903) | Jewish | Public domain |
+| Rodwell Quran (1861) | Islamic | Public domain |
+| Sale Quran (1734) | Islamic | Public domain |
+| Avesta translations | Zoroastrian | Public domain |
+| SuttaCentral root texts | Buddhist | CC0 |
+
+### Licensing Required
+
+Corpora that are in scope but cannot be distributed until rights are resolved. Do not ingest these
+sources into SQL seeds until the obtention path is completed.
+
+| Corpus | Restriction | Obtention Path |
+| ------ | ----------- | -------------- |
+| Book of Mormon (current LDS edition) | © Intellectual Reserve, Inc. | Use 1830 PD edition as interim; contact IRI for current edition |
+| Doctrine & Covenants | © Intellectual Reserve, Inc. | Contact IRI; no PD equivalent |
+| Pearl of Great Price | © Intellectual Reserve, Inc. | Contact IRI; no PD equivalent |
+| DSS variant apparatus (dssenglishbible.com) | No stated license; author's editorial work | Contact author directly for open-source permission |
+| Sefaria English translations | Individual translator copyrights vary | Identify CC-licensed Sefaria texts individually; use PD alternatives otherwise |
 
 ---
 
@@ -117,4 +197,5 @@ Most modern translations (NIV, ESV, NASB, NLT) are strictly licensed. Only open/
 - Glassmorphism (backdrop blur, transparency)
 - Custom serif font (TriniteNo2), Georgia/Times New Roman fallback
 
-**Future: soltana-ui** — see [soltana-ui.md](./soltana-ui.md) for the migration plan.
+**soltana-ui** — built incrementally by extracting stable components from Soltana's own SCSS. See
+[soltana-ui.md](./soltana-ui.md) for the strategy.

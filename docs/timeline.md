@@ -36,5 +36,5 @@ These are first-class data attributes. Ambiguity and scholarly disagreement are 
 
 - **Stubbed** — Route at `/timeline` with placeholder text
 - **Data model design** — Precedes implementation; schema not yet in D1
-- **Phase** — Phase 2: data model finalized, initial event dataset, D3.js implementation
-- **Phase 3** — Cross-tradition comparative view, perspective layers
+- **Phase** — Phase 5: data model, initial OT event dataset, D3.js implementation,
+  cross-tradition comparative view, and perspective layers; depends on corpus being stable in D1
