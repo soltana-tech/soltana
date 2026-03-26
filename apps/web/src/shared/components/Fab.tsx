@@ -11,7 +11,7 @@ interface FabProps {
 export function Fab({ visible, onClick, ariaLabel, className, children }: FabProps) {
   return (
     <button
-      className={`fab${className ? ` ${className}` : ''}${visible ? ' visible' : ''}`}
+      className={`fab fab-extended fab-controlled${visible ? ' is-visible' : ''}${className ? ` ${className}` : ''}`}
       onClick={onClick}
       aria-label={ariaLabel}
     >

@@ -26,7 +26,7 @@
 }
 
 // ---------------------------------------------------------------------------
-// Cards
+// Cards (not yet extracted to soltana-ui)
 // ---------------------------------------------------------------------------
 
 .card {
@@ -64,7 +64,7 @@
 }
 
 // ---------------------------------------------------------------------------
-// Badge
+// Badge (not yet extracted to soltana-ui)
 // ---------------------------------------------------------------------------
 
 .badge {
@@ -85,116 +85,9 @@
 }
 
 // ---------------------------------------------------------------------------
-// Data table
+// Icon button (local; not yet in soltana-ui)
 // ---------------------------------------------------------------------------
-
-.data-table-wrap {
-  @include data-table-wrap;
-}
-
-.data-scroll {
-  overflow: auto;
-  border-radius: $radius-lg;
-}
-
-.data-table {
-  @include data-table;
-  @include data-table-flush-first-row;
-  @include data-table-mobile;
-
-  tbody tr:hover:not(.current-week) .row-overlay {
-    opacity: 1;
-  }
-}
-
-// ---------------------------------------------------------------------------
-// Row overlays
-// ---------------------------------------------------------------------------
-
-.row-bg {
-  @include row-bg-image;
-}
-
-.row-overlay {
-  @include row-hover-overlay;
-}
-
-// ---------------------------------------------------------------------------
-// Buttons
-// ---------------------------------------------------------------------------
-
-.btn-group {
-  @include btn-group;
-}
-
-.action-btn {
-  @include action-btn;
-
-  &.read .action-label {
-    color: $green;
-  }
-}
-
-.action-label {
-  flex-shrink: 0;
-  font-weight: 700;
-  color: $cyan;
-  letter-spacing: 0.04em;
-  min-width: 5ch;
-  font-size: 0.85rem;
-  transition: color $transition-medium;
-}
-
-.action-text {
-  color: $ink-1;
-  font-size: 0.9rem;
-
-  &.empty {
-    color: $ink-2;
-    font-style: italic;
-  }
-}
 
 .icon-btn {
   @include icon-btn;
-}
-
-// ---------------------------------------------------------------------------
-// Tooltip
-// ---------------------------------------------------------------------------
-
-.tooltip {
-  position: absolute;
-  @include tooltip;
-}
-
-// ---------------------------------------------------------------------------
-// FAB
-// ---------------------------------------------------------------------------
-
-.fab {
-  @include fab-base;
-
-  flex-direction: column;
-  gap: 4px;
-  padding: 12px 16px;
-}
-
-.fab-label {
-  @include fab-label;
-}
-
-// ---------------------------------------------------------------------------
-// Mobile overrides for data table and scroll container
-// ---------------------------------------------------------------------------
-
-@media (width <= 768px) {
-  .data-table {
-    min-width: 100%;
-  }
-
-  .data-scroll {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-  }
 }

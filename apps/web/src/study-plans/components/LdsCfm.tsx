@@ -162,9 +162,9 @@ export function LdsCfm() {
         <span className="cfm-sort-fab-tooltip">{sortTooltip}</span>
       </Fab>
 
-      <div className="data-table-wrap cfm-table-wrap">
-        <div className="data-scroll">
-          <table className="data-table" aria-label="Old Testament study timeline table">
+      <div className="table-panel cfm-table-wrap">
+        <div className="table-scroll">
+          <table className="table cfm-table" aria-label="Old Testament study timeline table">
             <thead ref={theadRef}>
               <tr>
                 <th>Week</th>
@@ -253,7 +253,7 @@ function WeekRow({ week, viewMode, isCurrent, isDayRead, toggleDay }: WeekRowPro
       </td>
 
       <td className="col-readings">
-        <div className="btn-group">
+        <div className="action-list">
           {dailyReadings.map((reading, dayIndex) => {
             const isEmpty = reading === '';
             const isRead = isDayRead(week.week, dayIndex);
@@ -261,15 +261,15 @@ function WeekRow({ week, viewMode, isCurrent, isDayRead, toggleDay }: WeekRowPro
             return (
               <button
                 key={dayIndex}
-                className={`action-btn${isRead ? ' read' : ''}${isEmpty ? ' empty' : ''}`}
+                className={`action-item${isRead ? ' is-active' : ''}${isEmpty ? ' is-empty' : ''}`}
                 disabled={isEmpty}
                 onClick={() => {
                   toggleDay(week.week, dayIndex);
                 }}
                 aria-pressed={isRead}
               >
-                <span className="action-label">Day {dayOfYearBase + dayIndex + 1}</span>
-                <span className={`action-text${isEmpty ? ' empty' : ''}`}>
+                <span className="action-item-label">Day {dayOfYearBase + dayIndex + 1}</span>
+                <span className={`action-item-text${isEmpty ? ' is-empty' : ''}`}>
                   {isEmpty ? 'No reading' : reading}
                 </span>
               </button>
